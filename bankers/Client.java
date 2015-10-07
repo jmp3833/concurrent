@@ -5,14 +5,10 @@ class Client extends Thread {
    */
   private final String name;
   private final Banker banker;
+  private final int nRequests;
   private final int nUnits;
   private final long minSleepMillis;
   private final long maxSleepMillis;
-  
-  /*
-   * Mutable instance variables
-   */  
-  private int nRequests;
 
   public Client(String name, Banker banker, int nUnits,
   int nRequests, long minSleepMillis, long maxSleepMillis) {
@@ -32,5 +28,4 @@ class Client extends Thread {
   public void run() {
   
   }
-
 }
