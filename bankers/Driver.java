@@ -20,6 +20,9 @@ class Driver {
 
   //Maximum time (in ms) a client can sleep between requests
   private final static int maxSleepMillis = 6000;
+  
+  //The amount of time each client thread is given to execute
+  private final static int threadDuration = 1000;
  
 
   /*
@@ -35,8 +38,27 @@ class Driver {
     Client[] clients = new Client[numClients];
 
     //Name and instantiate all the clients
+    //Then run them one by one
     for (int i = 0; i < numClients; i++) {
-      //TODO: Instantiate some clients
+      clients[i] = new Client("client" + i, banker, nClientUnits, nRequests, minSleepMillis, maxSleepMillis); 
+      clients[i].start();
     }
+
+    //Call join() on each client to make sure
+    //each thread has completed before completing the main thread.
+    for (int i = 0; i < numClients; i++) {
+      try {
+        clients[i].join(threadDuration);
+        System.out.println("Client " + clients[i].name + " is done for the day!");
+      }
+      catch(InterruptedException e) {
+        System.out.println("Issue joining thread " +  clients[i].name);
+      }
+    }
+
+    System.out.println("Clients have completed execution. Let's call it a day!");
+
+    //Program execution has completed
+    System.exit(1);
   }
 }

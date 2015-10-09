@@ -3,7 +3,7 @@ class Client extends Thread {
   /*
    * Final instance variables
    */
-  private final String name;
+  public final String name; //Public to print name on error from driver
   private final Banker banker;
   private final int nRequests;
   private final int nUnits;
@@ -26,6 +26,8 @@ class Client extends Thread {
    * will either request or release resources by invoking methods in the banker.
    */
   public void run() {
-  
+    while(true){
+      //TODO: Place logic here instead of running indefinitely 
+    } 
   }
 }
