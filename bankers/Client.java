@@ -10,6 +10,11 @@ class Client extends Thread {
   private final long minSleepMillis;
   private final long maxSleepMillis;
 
+  //Mutable variable to tell if a claim already exists
+  public boolean claimRegistered = false;
+  //Number of resources currently allocated to a given Client
+  public int numAllocated = 0;
+
   public Client(String name, Banker banker, int nUnits,
   int nRequests, long minSleepMillis, long maxSleepMillis) {
     this.name = name;

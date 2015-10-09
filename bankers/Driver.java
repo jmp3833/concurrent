@@ -41,6 +41,7 @@ class Driver {
     //Then run them one by one
     for (int i = 0; i < numClients; i++) {
       clients[i] = new Client("client" + i, banker, nClientUnits, nRequests, minSleepMillis, maxSleepMillis); 
+      System.out.println("Client " + clients[i].name + " is starting up!");
       clients[i].start();
     }
 
