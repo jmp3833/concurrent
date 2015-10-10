@@ -131,7 +131,6 @@ class Banker {
   
   private boolean isSafeRequest(String name, int request) {
     Set<String> clients = claims.keySet();
-    clients.remove(name);//remove the requesting client from our client set
     int newRemaining = unitsRemaining - request;
     
     //If the request is more than the banker has left, obviously we can't grant the request

@@ -21,7 +21,8 @@ class Client extends Thread {
     this.nUnits = nUnits;
     this.nRequests = nRequests;
     this.minSleepMillis = minSleepMillis;
-    this.maxSleepMillis = maxSleepMillis; 
+    this.maxSleepMillis = maxSleepMillis;
+    rng = new Random();
   }
   
   /*
@@ -37,7 +38,13 @@ class Client extends Thread {
       if(rem == 0) {
         banker.release(nUnits);
       } else {
-        int req = rng.nextInt(nUnits - rem - 1) + 1;
+        int req;
+        if(rem == 1) {
+          req = 1;
+        } else {
+          //If else needed because nextInt does not work with an argument of 0 (i.e. when rem = 1)
+          req = rng.nextInt(rem - 1) + 1;
+        }
         banker.request(req);
       }
       //wait a while before requesting/releasing anything
