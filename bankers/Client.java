@@ -10,9 +10,6 @@ class Client extends Thread {
   private final int nUnits;
   private final long minSleepMillis;
   private final long maxSleepMillis;
-
-  //Mutable variable to tell if a claim already exists
-  public boolean claimRegistered = false;
   
   //random number generator for sleep/requests
   private Random rng;
