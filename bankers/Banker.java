@@ -1,7 +1,15 @@
+import java.util.HashMap;
+
 class Banker {
   private final int nUnits;
+  
+  //Map storing each registered claim
+  //Array is: [0] = nUnits, [1] = currently allocated
+  private HashMap<String, int[]> claims;
+  
   public Banker(int nUnits) {
     this.nUnits = nUnits; 
+    this.claims = new HashMap<String, int[]>();
   }
 
   /*
@@ -17,15 +25,15 @@ class Banker {
      * the client has already registered a claim
      */
     if(nUnits > this.nUnits || nUnits < 1 || c.claimRegistered == true) {
-      System.out.println(c.name + " has attempted to make an invalid claim");
+      System.out.println(c.getName() + " has attempted to make an invalid claim");
       System.exit(1); 
     }
     
     //Register a claim on the current client thread.   
-    System.out.println("Client " + c.name + " requests " + nUnits + "units.");
+    System.out.println("Client " + c.getName() + " requests " + nUnits + "units.");
     c.claimRegistered = true;
-    c.numAllocated = 0; 
-
+    int[] arr = {nUnits, 0};
+    claims.put(c.getName(), arr);
   } 
   
   /*
@@ -38,7 +46,7 @@ class Banker {
   /*
    * The current thread releases nUnits resources
    */
-  public synchronized void release() {
+  public synchronized void release(int nUnits2) {
     
   }
   

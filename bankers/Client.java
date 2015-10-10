@@ -1,9 +1,10 @@
+import java.util.Random;
+
 class Client extends Thread {
 
   /*
    * Final instance variables
    */
-  public final String name; //Public to print name on error from driver
   private final Banker banker;
   private final int nRequests;
   private final int nUnits;
@@ -12,12 +13,13 @@ class Client extends Thread {
 
   //Mutable variable to tell if a claim already exists
   public boolean claimRegistered = false;
-  //Number of resources currently allocated to a given Client
-  public int numAllocated = 0;
+  
+  //random number generator for sleep/requests
+  private Random rng;
 
   public Client(String name, Banker banker, int nUnits,
   int nRequests, long minSleepMillis, long maxSleepMillis) {
-    this.name = name;
+    super(name);
     this.banker = banker;
     this.nUnits = nUnits;
     this.nRequests = nRequests;
@@ -31,8 +33,25 @@ class Client extends Thread {
    * will either request or release resources by invoking methods in the banker.
    */
   public void run() {
-    while(true){
-      //TODO: Place logic here instead of running indefinitely 
-    } 
+    banker.setClaim(nUnits);
+    for(int i = 0; i < nRequests; i++) {
+      int rem = banker.remaining();
+      //if we already borrowed our max
+      if(rem == 0) {
+        banker.release(nUnits);
+      } else {
+        int req = rng.nextInt(nUnits - rem - 1) + 1;
+        banker.request(req);
+      }
+      //wait a while before requesting/releasing anything
+      long sleepTime = rng.nextInt((int) (maxSleepMillis - minSleepMillis - 1)) + minSleepMillis;
+      try {
+        Thread.sleep(sleepTime);
+      } catch (InterruptedException e) {
+        System.out.println("Thread " + getName() + " was interrupted while sleeping.");
+      }
+    }
+    //Release everything, cause we're done borrowing
+    banker.release(banker.remaining());
   }
 }

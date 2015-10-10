@@ -1,7 +1,4 @@
 class Driver {
-  
-  //Number of resources that are allocated to the banker
-  private final static int numResources = 0;
 
   //Number of clients to instantiate
   private final static int numClients = 5;
@@ -41,7 +38,7 @@ class Driver {
     //Then run them one by one
     for (int i = 0; i < numClients; i++) {
       clients[i] = new Client("client" + i, banker, nClientUnits, nRequests, minSleepMillis, maxSleepMillis); 
-      System.out.println("Client " + clients[i].name + " is starting up!");
+      System.out.println("Client " + clients[i].getName() + " is starting up!");
       clients[i].start();
     }
 
@@ -50,10 +47,10 @@ class Driver {
     for (int i = 0; i < numClients; i++) {
       try {
         clients[i].join(threadDuration);
-        System.out.println("Client " + clients[i].name + " is done for the day!");
+        System.out.println("Client " + clients[i].getName() + " is done for the day!");
       }
       catch(InterruptedException e) {
-        System.out.println("Issue joining thread " +  clients[i].name);
+        System.out.println("Issue joining thread " +  clients[i].getName());
       }
     }
 
