@@ -22,6 +22,7 @@ class PM extends Thread {
   
   class firstTask extends TimerTask {
       public void run() {
+    	  System.out.println("Project Manager is entering the morning Executive Meeting");
     	  try {
 			PM.sleep(600);
 		} catch (InterruptedException e) {
@@ -29,10 +30,13 @@ class PM extends Thread {
 			e.printStackTrace();
 		}
           firstTimer.cancel(); //Terminate the timer thread
+          System.out.println("Project Manager is leaving the morning Executive Meeting");
       }
   }
   class secondTask extends TimerTask {
       public void run() {
+    	  System.out.println("Project Manager is entering the afternoon Executive Meeting");
+
     	  try {
 			PM.sleep(600);
 		} catch (InterruptedException e) {
@@ -40,8 +44,11 @@ class PM extends Thread {
 			e.printStackTrace();
 		}
           secondTimer.cancel(); //Terminate the timer thread
+    	  System.out.println("Project Manager is leaving the afternoon Executive Meeting");
+
       }
   }
+  
   class leaveTask extends TimerTask {
       public void run() {
     	  System.out.println("Project Mangaer leaving for the day at 5:00pm!");
@@ -55,12 +62,15 @@ class PM extends Thread {
       else return endTime;
   }
   public static void askPMQuestion(){
+	  System.out.println("Asking the Project Manager a question");
 	  try {
+		  System.out.println("Project Manager is thinking...");
 		PM.sleep(100);
 	} catch (InterruptedException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
+	  System.out.println("Project Manager answered question");
   }
 
 }
