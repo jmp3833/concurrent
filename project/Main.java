@@ -2,6 +2,8 @@ class Main {
   public static void main(String[] args) {
     ConferenceRoom cr = new ConferenceRoom();
 
+    PM pm = new PM("The Boss", cr);
+
     //Team leads
     TeamLead tl1 = new TeamLead("TL1 Joe");
     TeamLead tl2 = new TeamLead("TL2 Larry");

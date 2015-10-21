@@ -1,7 +1,10 @@
 class PM extends Thread {
+	private ConferenceRoom cr;
 
-  public PM(String name) {
-    super(name);  }
+  public PM(String name, ConferenceRoom c) {
+	  super(name);
+	cr = c;
+  }
  
   public static void askPMQuestion(){
 	  try {
