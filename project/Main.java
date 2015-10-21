@@ -1,6 +1,6 @@
 class Main {
   public static void main(String[] args) {
-    ConferenceRoom cr = new ConferenceRoom(false);
+    ConferenceRoom cr = new ConferenceRoom();
 
     //Team leads
     TeamLead tl1 = new TeamLead("TL1 Joe");
@@ -29,6 +29,6 @@ class Main {
     Team t2 = new Team(team2, tl2);
     Team t3 = new Team(team3, tl3);
 
-    
+
   }
 }

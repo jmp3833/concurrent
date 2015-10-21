@@ -1,15 +1,22 @@
 class ConferenceRoom {
 
   public boolean isFree;
-  public ConferenceRoom(boolean isFree) {
-    this.isFree = isFree; 
+  public ConferenceRoom() {
+    this.isFree = true;
   }
 
   public synchronized void holdMeeting() {
-	  this.isFree = false;
+    while(this.isFree == false) {
+      try {
+        wait();
+      } catch (InterruptedException e) {
+      }
+    }
+	this.isFree = false;
   }
 
   public synchronized void endMeeting() {
-	  this.isFree = true;
+	this.isFree = true;
+    notifyAll();
   }
 }
