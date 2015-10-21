@@ -1,20 +1,14 @@
 import java.util.Random;
-import java.util.concurrent.CyclicBarrier;
 
 class Developer extends Thread implements Runnable {
 
     private Random rng;
     private Team team;
-    private CyclicBarrier standupBarrier;
 
     public Developer(String name, Team t) {
         super(name);
         this.team = t;
         rng = new Random();
-    }
-
-    public void setStandupBarrier(CyclicBarrier standupBarrier) {
-        this.standupBarrier = standupBarrier;
     }
 
     /*
@@ -33,7 +27,7 @@ class Developer extends Thread implements Runnable {
                     + arrivalTime);
 
             //Wait for the daily developer standup
-            standupBarrier.await();
+            team.getStandupBarrier().await();
         } catch (Exception e) {
             e.printStackTrace();
         }
