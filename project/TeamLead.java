@@ -1,3 +1,3 @@
-class TeamLead {
+class TeamLead extends Thread {
 
 }
