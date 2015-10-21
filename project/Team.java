@@ -14,4 +14,8 @@ class Team {
         this.standupBarrior = new CyclicBarrier(4, standup);
     }
 
+    public TeamLead getLead() {
+        return lead;
+    }
+
 }

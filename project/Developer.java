@@ -2,33 +2,34 @@ import java.util.Random;
 
 class Developer extends Thread {
 
-  private Random rng;
+    private Random rng;
+    private Team team;
 
-  public Developer(String name) {
-    super(name);
-    rng = new Random();
-  }
+    public Developer(String name, Team t) {
+        super(name);
+        this.team = t;
+        rng = new Random();
+    }
   
   /*
    * Conduct a standard day for the developer 
    */
-  public void run() {
+    public void run() {
+        try {
+            //Enter the office anywhere between 8 and 8:30 AM
+            int arrivalMillis = rng.nextInt(290);
+            Thread.sleep(arrivalMillis);
 
-    //Enter the office anywhere between 8 and 8:30 AM
-    try {
-      int arrivalMillis = rng.nextInt(290);
-      Thread.sleep(arrivalMillis);
+             String arrivalTime = (arrivalMillis / 10 < 10) ?
+            ("0" + Integer.toString(arrivalMillis / 10)) : Integer.toString(arrivalMillis / 10);
 
-      String arrivalTime = (arrivalMillis / 10 < 10) ? 
-        ("0" + Integer.toString(arrivalMillis / 10)) : Integer.toString(arrivalMillis / 10);
+            System.out.println("Developer " + super.getName() + "enters the office at 8:"
+                + arrivalTime);
+        }
 
-      System.out.println("Developer " + super.getName() + "enters the office at 8:"
-          + arrivalTime);
+        catch(InterruptedException e) {
+            e.printStackTrace();
+        }
     }
-
-    catch(InterruptedException e) {
-      e.printStackTrace(); 
-    }
-  }
 
 }
