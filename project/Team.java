@@ -18,4 +18,8 @@ class Team {
         }
     }
 
+    public TeamLead getLead() {
+        return lead;
+    }
+
 }
