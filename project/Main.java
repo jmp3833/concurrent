@@ -3,6 +3,7 @@ class Main {
     ConferenceRoom cr = new ConferenceRoom();
 
     PM pm = new PM("The Boss", cr);
+    
 
     //Team leads
     TeamLead tl1 = new TeamLead("TL1 Joe");
@@ -26,11 +27,10 @@ class Main {
     Developer d32 = new Developer("D32 Baily");
     Developer d33 = new Developer("D33 Biff");
     Developer[] team3 = {d31, d32, d33};
-
+    
     Team t1 = new Team(team1, tl1);
     Team t2 = new Team(team2, tl2);
     Team t3 = new Team(team3, tl3);
-
 
   }
 }
