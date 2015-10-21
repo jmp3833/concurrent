@@ -10,5 +10,4 @@ class TeamLead extends Thread {
 	  Boolean answer = rand.nextInt(100) < 50;
 	  return answer;
   }
-
 }
