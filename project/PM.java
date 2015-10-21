@@ -14,12 +14,14 @@ class PM extends Thread {
 	  cr = c;
 	  this.startTime = System.currentTimeMillis();
 	  this.endTime = this.endTime + 5400;
+	  
+	  
 	  firstTimer = new Timer();
 	  secondTimer = new Timer();
-      firstTimer.schedule(new meetingTask(firstTimer), 1200);
-      lunchTimer.schedule(new meetingTask(lunchTimer), 2400);
-      secondTimer.schedule(new meetingTask(secondTimer), 3600);
-      leaveTimer.schedule(new meetingTask(leaveTimer), 5400);
+	  lunchTimer = new Timer();
+	  leaveTimer = new Timer();
+	  
+	 
   }
   
   class meetingTask extends TimerTask {
@@ -29,6 +31,7 @@ class PM extends Thread {
 	 }
 	 @Override
 	  public void run() {
+		 //Before the sleep is called message
 		 if(this.timer.equals(firstTimer)){
 	    	  System.out.println("Project Manager is entering the morning Executive Meeting");
 		 }
@@ -44,6 +47,7 @@ class PM extends Thread {
 			 this.timer.cancel();
 		 }
 		 
+		 //Sleep for 1 hour
 		 try {
 				PM.sleep(600);
 			} catch (InterruptedException e) {
@@ -51,6 +55,7 @@ class PM extends Thread {
 				e.printStackTrace();
 			}
 		
+		 //After the sleep is called
 		 if(this.timer.equals(firstTimer)){
 	          System.out.println("Project Manager is leaving the morning Executive Meeting");
 		 }
@@ -65,11 +70,13 @@ class PM extends Thread {
 	  }
   }
    
+  //Returns current system time - start time giving time in ms since 8am.
   public long getTime(){
       if(this.isAlive()) return(System.currentTimeMillis() - startTime);
       else return endTime;
   }
   
+  //Sleeps pm for 10 minutes to answer question.
   public static void askPMQuestion(){
 	  System.out.println("Asking the Project Manager a question");
 	  try {
@@ -80,6 +87,17 @@ class PM extends Thread {
 		e.printStackTrace();
 	}
 	  System.out.println("Project Manager answered question");
+  }
+  
+  public void run(){
+	  //First meeting at 10
+      firstTimer.schedule(new meetingTask(firstTimer), 1200);
+      //Lunch at 12
+      lunchTimer.schedule(new meetingTask(lunchTimer), 2400);
+      //Second meeting at 2
+      secondTimer.schedule(new meetingTask(secondTimer), 3600);
+      //
+      leaveTimer.schedule(new meetingTask(leaveTimer), 5400);
   }
 
 }
