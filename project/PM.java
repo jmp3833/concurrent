@@ -7,6 +7,7 @@ class PM extends Thread {
   private ConferenceRoom cr;
   private Timer firstTimer;
   private Timer secondTimer;
+  private Timer lunchTimer;
   private Timer leaveTimer;
   public PM(String name, ConferenceRoom c) {
 	  super(name);
@@ -15,52 +16,60 @@ class PM extends Thread {
 	  this.endTime = this.endTime + 5400;
 	  firstTimer = new Timer();
 	  secondTimer = new Timer();
-      firstTimer.schedule(new firstTask(), 1200);
-      secondTimer.schedule(new secondTask(), 3600);
-      leaveTimer.schedule(new leaveTask(), 5400);
+      firstTimer.schedule(new meetingTask(firstTimer), 1200);
+      lunchTimer.schedule(new meetingTask(lunchTimer), 2400);
+      secondTimer.schedule(new meetingTask(secondTimer), 3600);
+      leaveTimer.schedule(new meetingTask(leaveTimer), 5400);
   }
   
-  class firstTask extends TimerTask {
-      public void run() {
-    	  System.out.println("Project Manager is entering the morning Executive Meeting");
-    	  try {
-			PM.sleep(600);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-          firstTimer.cancel(); //Terminate the timer thread
-          System.out.println("Project Manager is leaving the morning Executive Meeting");
-      }
-  }
-  class secondTask extends TimerTask {
-      public void run() {
-    	  System.out.println("Project Manager is entering the afternoon Executive Meeting");
+  class meetingTask extends TimerTask {
+	 Timer timer;
+	 public meetingTask(Timer timer){
+		 this.timer = timer;
+	 }
+	 @Override
+	  public void run() {
+		 if(this.timer.equals(firstTimer)){
+	    	  System.out.println("Project Manager is entering the morning Executive Meeting");
+		 }
+		 else if(this.timer.equals(secondTimer)){
+	    	  System.out.println("Project Manager is entering the afternoon Executive Meeting");
+		 }
+		 else if(this.timer.equals(lunchTimer)){
+	    	  System.out.println("Project Manager is heading to lunch");
 
-    	  try {
-			PM.sleep(600);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-          secondTimer.cancel(); //Terminate the timer thread
-    	  System.out.println("Project Manager is leaving the afternoon Executive Meeting");
-
-      }
+		 }
+		 else{
+			 System.out.println("Project Mangaer leaving for the day at 5:00pm!");
+			 this.timer.cancel();
+		 }
+		 
+		 try {
+				PM.sleep(600);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		 if(this.timer.equals(firstTimer)){
+	          System.out.println("Project Manager is leaving the morning Executive Meeting");
+		 }
+		 else if(this.timer.equals(secondTimer)){
+	    	  System.out.println("Project Manager is leaving the afternoon Executive Meeting");
+		 }
+		 else if(this.timer.equals(lunchTimer)){
+	          System.out.println("Project Manager is finished with lunch");
+		 }
+		 this.timer.cancel();
+		 
+	  }
   }
-  
-  class leaveTask extends TimerTask {
-      public void run() {
-    	  System.out.println("Project Mangaer leaving for the day at 5:00pm!");
-          leaveTimer.cancel(); //Terminate the timer thread
-      }
-  }
-  
    
   public long getTime(){
       if(this.isAlive()) return(System.currentTimeMillis() - startTime);
       else return endTime;
   }
+  
   public static void askPMQuestion(){
 	  System.out.println("Asking the Project Manager a question");
 	  try {
