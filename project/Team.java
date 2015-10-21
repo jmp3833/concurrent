@@ -7,19 +7,31 @@ class Team {
     private CyclicBarrier standupBarrier;
     private Meeting standup;
 
-    public Team(Developer[] developers, TeamLead lead) {
-        this.developers = developers;
-        this.lead = lead;
+    public Team() {
         this.standup = new Meeting("Team " + teamNumber);
         this.standupBarrier = new CyclicBarrier(4, standup);
-
-        for(int i = 0; i < developers.length; i++) {
-          developers[i].setStandupBarrier(this.standupBarrier);
-        }
     }
 
     public TeamLead getLead() {
         return lead;
+    }
+    
+    /*
+     * Assign developers to a team once they've been instantiated.
+     */
+    public void setDevelopers(Developer[] developers) {
+      this.developers = developers; 
+    }
+    
+    /*
+     * Assign team leads to a team once they've been instantiated.
+     */
+    public void setLead(TeamLead lead) {
+      this.developers = developers; 
+    }
+
+    public CyclicBarrier getStandupBarrier() {
+      return this.standupBarrier; 
     }
 
 }
