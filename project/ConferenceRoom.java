@@ -6,10 +6,10 @@ class ConferenceRoom {
   }
 
   public synchronized void holdMeeting() {
-  
+	  this.isFree = false;
   }
 
   public synchronized void endMeeting() {
-  
+	  this.isFree = true;
   }
 }
