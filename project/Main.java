@@ -15,7 +15,7 @@ class Main {
     TeamLead tl2 = new TeamLead("TL2 Larry", t2);
     t2.setLead(tl2);
     TeamLead tl3 = new TeamLead("TL3 Bob", t3);
-    t2.setLead(tl2);
+    t3.setLead(tl3);
 
     //Team 1
     Developer d11 = new Developer("D11 Jake", t1);
@@ -40,6 +40,18 @@ class Main {
     Developer[] team3 = {d31, d32, d33};
 
     t3.setDevelopers(team3);
+    
+    //Fire off the team leads 
+    tl1.start();
+    tl2.start();
+    tl3.start();
+    
+    //Fire off all devs on all teams
+    for (int i = 0; i < team1.length; i++) {
+      team1[i].start();
+      team2[i].start(); 
+      team3[i].start();
+    }
 
   }
 }

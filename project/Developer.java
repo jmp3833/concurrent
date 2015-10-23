@@ -28,6 +28,10 @@ class Developer extends Thread implements Runnable {
 
             //Wait for the daily developer standup
             team.getStandupBarrier().await();
+          
+            //Keep going once standup is complete
+            team.getLead().askQuestion();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
