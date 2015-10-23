@@ -1,3 +1,5 @@
+import java.sql.Time;
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -99,6 +101,18 @@ class PM extends Thread {
       //
       leaveTimer.schedule(new meetingTask(leaveTimer), 5400);
   }
+    //give a string of the current time
+    public String getClockTime() {
+        //Time since 8:00AM in milliseconds (10ms = 1min)
+        long milliseconds = getTime();
+        long minutes = milliseconds/10;
+        long printMin = minutes%60;
+        long hours = (minutes/60) + 8;
+
+        String ret = String.format("%1$2s:%2$02d", hours%12, printMin);
+
+        return ret;
+    }
 
 }
 
