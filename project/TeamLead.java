@@ -1,13 +1,13 @@
 import java.util.Random;
 
 class TeamLead extends Developer {
-
-    public TeamLead(String name, Team t) {
+	private PM pm;
+    public TeamLead(String name, Team t, PM thePm) {
         super(name, t);
-
+        this.pm = thePm;
     }
 
-    public synchronized Boolean askQuestion() {
+    public synchronized void askQuestion() {
     	System.out.println("Asking Team Lead a question");
         Random rand = new Random();
 	    Boolean answer = rand.nextInt(100) < 50;
@@ -16,12 +16,8 @@ class TeamLead extends Developer {
 	    }
 	    else{
 	    	System.out.println("Team Lead was not able to answer the question.");
+	    	this.pm.askPMQuestion();
 	    }
 	    
-	    return answer;
-    }
-
-    public void run() {
-
     }
 }

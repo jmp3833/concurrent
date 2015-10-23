@@ -13,7 +13,7 @@ class Team {
     }
 
     public TeamLead getLead() {
-        return lead;
+        return this.lead;
     }
     
     /*
@@ -27,7 +27,7 @@ class Team {
      * Assign team leads to a team once they've been instantiated.
      */
     public void setLead(TeamLead lead) {
-      this.developers = developers; 
+      this.lead = lead; 
     }
 
     public CyclicBarrier getStandupBarrier() {
