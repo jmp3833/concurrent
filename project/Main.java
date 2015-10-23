@@ -2,7 +2,7 @@ class Main {
   public static void main(String[] args) {
     ConferenceRoom cr = new ConferenceRoom();
 
-    //PM pm = new PM("The Boss", cr);
+    PM pm = new PM("The Boss", cr);
     
     //Teams 
     Team t1 = new Team();
@@ -10,12 +10,12 @@ class Main {
     Team t3 = new Team();
 
     //Team leads
-    TeamLead tl1 = new TeamLead("TL1 Joe", t1);
+    TeamLead tl1 = new TeamLead("TL1 Joe", t1, pm);
     t1.setLead(tl1);
-    TeamLead tl2 = new TeamLead("TL2 Larry", t2);
+    TeamLead tl2 = new TeamLead("TL2 Larry", t2, pm);
     t2.setLead(tl2);
-    TeamLead tl3 = new TeamLead("TL3 Bob", t3);
-    t2.setLead(tl2);
+    TeamLead tl3 = new TeamLead("TL3 Bob", t3, pm);
+    t3.setLead(tl3);
 
     //Team 1
     Developer d11 = new Developer("D11 Jake", t1);

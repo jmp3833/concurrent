@@ -33,13 +33,13 @@ class PM extends Thread {
 	  public void run() {
 		 //Before the sleep is called message
 		 if(this.timer.equals(firstTimer)){
-	    	  System.out.println("Project Manager is entering the morning Executive Meeting");
+	    	  System.out.println("Project Manager is entering the morning Executive Meeting at " + getClockTime());
 		 }
 		 else if(this.timer.equals(secondTimer)){
-	    	  System.out.println("Project Manager is entering the afternoon Executive Meeting");
+	    	  System.out.println("Project Manager is entering the afternoon Executive Meeting at " + getClockTime());
 		 }
 		 else if(this.timer.equals(lunchTimer)){
-	    	  System.out.println("Project Manager is heading to lunch");
+	    	  System.out.println("Project Manager is heading to lunch at" + getClockTime());
 
 		 }
 		 else{
@@ -57,13 +57,13 @@ class PM extends Thread {
 		
 		 //After the sleep is called
 		 if(this.timer.equals(firstTimer)){
-	          System.out.println("Project Manager is leaving the morning Executive Meeting");
+	          System.out.println("Project Manager is leaving the morning Executive Meeting at " + getClockTime());
 		 }
 		 else if(this.timer.equals(secondTimer)){
-	    	  System.out.println("Project Manager is leaving the afternoon Executive Meeting");
+	    	  System.out.println("Project Manager is leaving the afternoon Executive Meeting at " + getClockTime());
 		 }
 		 else if(this.timer.equals(lunchTimer)){
-	          System.out.println("Project Manager is finished with lunch");
+	          System.out.println("Project Manager is finished with lunch at " + getClockTime());
 		 }
 		 this.timer.cancel();
 		 
@@ -77,8 +77,8 @@ class PM extends Thread {
   }
   
   //Sleeps pm for 10 minutes to answer question.
-  public static void askPMQuestion(){
-	  System.out.println("Asking the Project Manager a question");
+  public synchronized void askPMQuestion(){
+	  System.out.println("Asking the Project Manager a question at " + getClockTime());
 	  try {
 		  System.out.println("Project Manager is thinking...");
 		PM.sleep(100);
@@ -86,7 +86,7 @@ class PM extends Thread {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	  System.out.println("Project Manager answered question");
+	  System.out.println("Project Manager answered question at " + getClockTime());
   }
   
   public void run(){
