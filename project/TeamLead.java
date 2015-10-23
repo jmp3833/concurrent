@@ -20,8 +20,4 @@ class TeamLead extends Developer {
 	    }
 	    
     }
-
-    public void run() {
-
-    }
 }
