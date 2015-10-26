@@ -56,6 +56,5 @@ class Main {
       team2[i].start(); 
       team3[i].start();
     }
-      pm.start();
   }
 }

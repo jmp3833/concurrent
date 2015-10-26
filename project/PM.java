@@ -7,23 +7,36 @@ import java.util.concurrent.CyclicBarrier;
 class PM extends Thread {
     public long startTime;
     public long endTime;
+
     private ConferenceRoom cr;
+
     private Timer firstTimer;
     private Timer secondTimer;
     private Timer lunchTimer;
     private Timer leaveTimer;
+
     private Meeting teamLeadStandup;
+    private Meeting afternoonMeeting;
+
     private CyclicBarrier standupBarrier;
+    private CyclicBarrier afternoonBarrier;
 
     public PM(String name, ConferenceRoom c) {
         super(name);
         cr = c;
         this.teamLeadStandup = new Meeting("Team Lead Standup");
+        this.afternoonMeeting = new Meeting("Afternoon Meeting");
+
         this.standupBarrier = new CyclicBarrier(4, teamLeadStandup);
+        this.afternoonBarrier = new CyclicBarrier(13, afternoonMeeting);
     }
 
     public CyclicBarrier getStandupBarrier() {
         return standupBarrier;
+    }
+     
+    public CyclicBarrier getAfternoonMeetingBarrier() {
+        return afternoonBarrier; 
     }
 
     class meetingTask extends TimerTask {
