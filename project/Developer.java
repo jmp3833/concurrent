@@ -65,8 +65,10 @@ class Developer extends Thread {
       int min = 1;
       while(team.getLead().getPM().getTime() < endTime) {
 
+        int maxTicks = max * 10000000;
+
         //Do work, asking questions when necessary until lunch
-        int randomQuestionChance = rng.nextInt((max - min) + 1) + min;
+        int randomQuestionChance = rng.nextInt((maxTicks - min) + 1) + min;
         if(randomQuestionChance == 1 && !isLead) {
           System.out.println("Developer " + this.getName() + " has a question!");
           team.getLead().askQuestion();
