@@ -22,22 +22,36 @@ class Developer extends Thread implements Runnable {
 
             //Wait for the daily developer standup
             team.getStandupBarrier().await();
-            int min = 1;
-            
-            while(team.getLead().getPM().getTime() < 1800) {
-              //Do work, asking questions when necessary until lunch
-              int randomQuestionChance = rng.nextInt((max - min) + 1) + min;
-              if(randomQuestionChance == 1) {
-                System.out.println("Developer " + this.getName() + " has a question!");
-                team.getLead().askQuestion();
-              }
-            }
 
+            working(2400);
+            
+            System.out.println("Developer" + this.getName() + 
+                "Goes to lunch at " + team.getLead().getPM().getClockTime());
+
+            Thread.sleep(600);
+            
             //Go to final meeting somewhere between 4:00 and 4:15
+            int workInterval = rng.nextInt((4950 - 4800) + 1) + 4800;
+            working(workInterval);
+
+            System.out.println("Developer" + this.getName() + 
+                "Goes to afternoon meeting at " + team.getLead().getPM().getClockTime());
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    protected void working(int endTime) throws InterruptedException {
+      int min = 1;
+      while(team.getLead().getPM().getTime() < endTime) {
+        //Do work, asking questions when necessary until lunch
+        int randomQuestionChance = rng.nextInt((max - min) + 1) + min;
+        if(randomQuestionChance == 1) {
+          System.out.println("Developer " + this.getName() + " has a question!");
+          team.getLead().askQuestion();
+        }
+      }
     }
 
     protected void arrive() throws InterruptedException {
