@@ -1,8 +1,11 @@
 class Main {
   public static void main(String[] args) {
     ConferenceRoom cr = new ConferenceRoom();
-
-    int questionFrequency = 10000000;
+    
+    //Factor between 1 and 10 to scale frequency of which a developer
+    //asks a question. the higher the value, the less frequent a dev will
+    //ask a question. (Magically make them more intelligent!) 
+    int questionFrequency = 1; 
 
     PM pm = new PM("The Boss", cr);
     
