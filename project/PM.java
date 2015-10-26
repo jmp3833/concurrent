@@ -13,7 +13,7 @@ class PM extends Thread {
 	  super(name);
 	  cr = c;
 	  this.startTime = System.currentTimeMillis();
-	  this.endTime = this.endTime + 5400;
+	  this.endTime = this.startTime + 5400;
 	  
 	  
 	  firstTimer = new Timer();
