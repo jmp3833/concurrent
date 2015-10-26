@@ -60,7 +60,7 @@ class TeamLead extends Developer {
             
             //Go to final meeting somewhere between 4:00 and 4:15
             System.out.println("Team Lead " + this.getName() + 
-                "is heading to the afternoon meeting at " + pm.getClockTime());
+                " is heading to the afternoon meeting at " + pm.getClockTime());
             pm.getAfternoonMeetingBarrier().await();
             
             //After the meeting, get ready to go home and end the day
@@ -69,7 +69,7 @@ class TeamLead extends Developer {
 
             //Leave after afternoon meeting is complete
             System.out.println("Team Lead " + this.getName() + 
-                "is heading home at " + pm.getClockTime());
+                " is heading home at " + pm.getClockTime());
 
         } catch (Exception e) {
         }

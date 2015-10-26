@@ -53,7 +53,7 @@ class Developer extends Thread {
             Thread.sleep(dillyDallyBeforeHome);
 
             //Leave after afternoon meeting is complete
-            System.out.println(" Developer" + this.getName() +
+            System.out.println("Developer" + this.getName() +
                 " is heading home at " + team.getLead().getPM().getClockTime());
 
         } catch (Exception e) {
