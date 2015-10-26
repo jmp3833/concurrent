@@ -5,9 +5,9 @@ class Main {
     PM pm = new PM("The Boss", cr);
     
     //Teams 
-    Team t1 = new Team();
-    Team t2 = new Team();
-    Team t3 = new Team();
+    Team t1 = new Team(1);
+    Team t2 = new Team(2);
+    Team t3 = new Team(3);
     
     //Team leads
     TeamLead tl1 = new TeamLead("TL1 Joe", t1, pm);
@@ -54,6 +54,6 @@ class Main {
       team2[i].start(); 
       team3[i].start();
     }
-
+      pm.start();
   }
 }

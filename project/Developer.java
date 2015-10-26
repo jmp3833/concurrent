@@ -23,7 +23,7 @@ class Developer extends Thread implements Runnable {
             String arrivalTime = (arrivalMillis / 10 < 10) ?
                     ("0" + Integer.toString(arrivalMillis / 10)) : Integer.toString(arrivalMillis / 10);
 
-            System.out.println("Developer " + super.getName() + "enters the office at 8:"
+            System.out.println("Developer " + super.getName() + " enters the office at 8:"
                     + arrivalTime);
 
             //Wait for the daily developer standup

@@ -31,7 +31,7 @@ class PM extends Thread {
 	    	  System.out.println("Project Manager is entering the afternoon Executive Meeting at " + getClockTime());
 		 }
 		 else if(this.timer.equals(lunchTimer)){
-	    	  System.out.println("Project Manager is heading to lunch at" + getClockTime());
+	    	  System.out.println("Project Manager is heading to lunch at " + getClockTime());
 
 		 }
 		 else{
@@ -84,7 +84,7 @@ class PM extends Thread {
   public void run(){
 	  this.startTime = System.currentTimeMillis();
 	  this.endTime = this.startTime + 5400; 
-	  System.out.print("Project Manager enters the office at " + getClockTime() );
+	  System.out.println("Project Manager enters the office at " + getClockTime() );
 	  firstTimer = new Timer();
 	  secondTimer = new Timer();
 	  lunchTimer = new Timer();
@@ -104,9 +104,9 @@ class PM extends Thread {
         long milliseconds = getTime();
         long minutes = milliseconds/10;
         long printMin = minutes%60;
-        long hours = (minutes/60) + 8;
+        long hours = (minutes/60) + 7;
 
-        String ret = String.format("%1$2s:%2$02d", hours%12, printMin);
+        String ret = String.format("%1$s:%2$02d", (hours%12) + 1, printMin);
 
         return ret;
     }

@@ -14,6 +14,7 @@ public class Meeting implements Runnable{
         }
         catch (InterruptedException e) {
         }
+        System.out.println("Meeting " + name + " has ended");
     }
 }
 
