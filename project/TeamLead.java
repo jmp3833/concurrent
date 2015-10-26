@@ -30,7 +30,7 @@ class TeamLead extends Developer {
             super.arrive();
 
             //go to the TeamLead standup meeting
-
+            pm.getStandupBarrier().await();
 
             //Hold team standup meeting
             conferenceRoom.holdMeeting();
