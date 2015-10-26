@@ -42,7 +42,21 @@ class TeamLead extends Developer {
             conferenceRoom.endMeeting();
 
             //Do work (asking questions along the way
-            super.working(4800, true);
+            int preLunchInterval = rng.nextInt((2550 - 2400) + 1) + 2400;
+            super.working(preLunchInterval, true);
+            
+            System.out.println("Team Lead " + this.getName() + 
+                "is heading to lunch at " + pm.getClockTime());
+
+            
+            int lunchDuration = rng.nextInt((600 - 300) + 1) + 300;
+            Thread.sleep(lunchDuration);
+            
+            System.out.println("Team Lead " + this.getName() + 
+                "is leaving lunch at " + pm.getClockTime());
+
+            int workInterval = rng.nextInt((4950 - 4800) + 1) + 4800;
+            working(workInterval, true);
             
             //Go to final meeting somewhere between 4:00 and 4:15
             System.out.println("Team Lead " + this.getName() + 
