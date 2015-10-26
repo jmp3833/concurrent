@@ -4,10 +4,14 @@ class TeamLead extends Developer {
 	private PM pm;
     private ConferenceRoom conferenceRoom;
 
-    public TeamLead(String name, Team t, PM thePm, ConferenceRoom cr) {
-        super(name, t);
+    public TeamLead(String name, Team t, int max, PM thePm, ConferenceRoom cr) {
+        super(name, t, max);
         this.conferenceRoom = cr;
         this.pm = thePm;
+    }
+
+    public PM getPM() {
+      return this.pm; 
     }
 
     public synchronized void askQuestion() {

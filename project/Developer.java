@@ -4,10 +4,12 @@ class Developer extends Thread implements Runnable {
 
     protected Random rng;
     protected Team team;
+    private int max;
 
-    public Developer(String name, Team t) {
+    public Developer(String name, Team t, int max) {
         super(name);
         this.team = t;
+        this.max = max;
         rng = new Random();
     }
 
@@ -20,9 +22,16 @@ class Developer extends Thread implements Runnable {
 
             //Wait for the daily developer standup
             team.getStandupBarrier().await();
-          
-            //Do work, asking questions when necessary
-            team.getLead().askQuestion();
+            int min = 1;
+            
+            while(team.getLead().getPM().getTime() < 1800) {
+              //Do work, asking questions when necessary until lunch
+              int randomQuestionChance = rng.nextInt((max - min) + 1) + min;
+              if(randomQuestionChance == 1) {
+                System.out.println("Developer " + this.getName() + " has a question!");
+                team.getLead().askQuestion();
+              }
+            }
 
             //Go to final meeting somewhere between 4:00 and 4:15
 
