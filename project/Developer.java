@@ -69,7 +69,7 @@ class Developer extends Thread {
         int randomQuestionChance = rng.nextInt((max - min) + 1) + min;
         if(randomQuestionChance == 1 && !isLead) {
           System.out.println("Developer " + this.getName() + " has a question!");
-          team.getLead().askQuestion();
+          team.getLead().askQuestion(this);
         }
       }
     }

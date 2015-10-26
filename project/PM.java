@@ -1,5 +1,5 @@
-import java.sql.Time;
-import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CyclicBarrier;
@@ -22,6 +22,8 @@ class PM extends Thread {
     private CyclicBarrier standupBarrier;
     private CyclicBarrier afternoonBarrier;
 
+    private Queue<TeamLead> questionLine;
+
     public PM(String name, ConferenceRoom c) {
         super(name);
         cr = c;
@@ -30,6 +32,8 @@ class PM extends Thread {
 
         this.standupBarrier = new CyclicBarrier(4, teamLeadStandup);
         this.afternoonBarrier = new CyclicBarrier(13, afternoonMeeting);
+
+        this.questionLine = new LinkedList();
     }
 
     public CyclicBarrier getStandupBarrier() {
@@ -63,7 +67,7 @@ class PM extends Thread {
                 try{
                   afternoonBarrier.await();
                 } catch (Exception e) {
-                
+                    e.printStackTrace();
                 }
             } else {
                 System.out.println("Project Mangaer leaving for the day at 5:00pm!");
@@ -74,7 +78,6 @@ class PM extends Thread {
             try {
                 PM.sleep(duration);
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
@@ -98,17 +101,21 @@ class PM extends Thread {
     }
 
     //Sleeps pm for 10 minutes to answer question.
-    public synchronized void askPMQuestion() {
-        System.out.println("Asking the Project Manager a question at " + getClockTime());
-        if(getTime() > 4800/*4:00pm*/) {
-            System.out.println("Project Manager does not have time to answer this question today");
+    public synchronized void askPMQuestion(TeamLead tl) {
+        System.out.println(tl.getName() + " is asking the Project Manager a question at " + getClockTime());
+        questionLine.add(tl);
+    }
+
+    private void answerQuestion() {
+        TeamLead tl = questionLine.remove();
+        if(getTime() > endTime - 600/*4:00pm*/) {
+            System.out.println("Project Manager does not have time to answer " + tl.getName() + "'s question today");
             return;
         }
         try {
             System.out.println("Project Manager is thinking...");
             PM.sleep(100);
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         System.out.println("Project Manager answered question at " + getClockTime());
@@ -139,7 +146,18 @@ class PM extends Thread {
             //Second meeting at 2
             finalTimer.schedule(new meetingTask(finalTimer, 150), 4500);
             leaveTimer.schedule(new meetingTask(leaveTimer, 600), 5400);
+
+            while(getTime() < endTime - 600 /*4:00pm*/) {
+                if(!questionLine.isEmpty()) {
+                    answerQuestion();
+                }
+            }
+            //Finish (not) answering the rest of the questions
+            while(!questionLine.isEmpty()) {
+                answerQuestion();
+            }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -151,9 +169,7 @@ class PM extends Thread {
         long printMin = minutes % 60;
         long hours = (minutes / 60) + 7;
 
-        String ret = String.format("%1$s:%2$02d", (hours % 12) + 1, printMin);
-
-        return ret;
+        return String.format("%1$s:%2$02d", (hours % 12) + 1, printMin);
     }
 
 }
