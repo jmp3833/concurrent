@@ -14,16 +14,6 @@ class PM extends Thread {
   public PM(String name, ConferenceRoom c) {
 	  super(name);
 	  cr = c;
-	  this.startTime = System.currentTimeMillis();
-	  this.endTime = this.startTime + 5400;
-	  
-	  
-	  firstTimer = new Timer();
-	  secondTimer = new Timer();
-	  lunchTimer = new Timer();
-	  leaveTimer = new Timer();
-	  
-	 
   }
   
   class meetingTask extends TimerTask {
@@ -74,8 +64,8 @@ class PM extends Thread {
    
   //Returns current system time - start time giving time in ms since 8am.
   public long getTime(){
-      if(this.isAlive()) return(System.currentTimeMillis() - startTime);
-      else return endTime;
+      return(System.currentTimeMillis() - startTime);
+     
   }
   
   //Sleeps pm for 10 minutes to answer question.
@@ -92,6 +82,13 @@ class PM extends Thread {
   }
   
   public void run(){
+	  this.startTime = System.currentTimeMillis();
+	  this.endTime = this.startTime + 5400; 
+	  System.out.print("Project Manager enters the office at " + getClockTime() );
+	  firstTimer = new Timer();
+	  secondTimer = new Timer();
+	  lunchTimer = new Timer();
+	  leaveTimer = new Timer();
 	  //First meeting at 10
       firstTimer.schedule(new meetingTask(firstTimer), 1200);
       //Lunch at 12

@@ -8,7 +8,7 @@ class Main {
     Team t1 = new Team();
     Team t2 = new Team();
     Team t3 = new Team();
-
+    
     //Team leads
     TeamLead tl1 = new TeamLead("TL1 Joe", t1, pm);
     t1.setLead(tl1);
@@ -42,7 +42,7 @@ class Main {
     Developer[] team3 = {d31, d32, d33};
 
     t3.setDevelopers(team3);
-    
+    pm.start();
     //Fire off the team leads 
     tl1.start();
     tl2.start();
