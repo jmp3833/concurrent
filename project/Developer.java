@@ -24,7 +24,7 @@ class Developer extends Thread implements Runnable {
             team.getStandupBarrier().await();
             int lunchtime = 2400;
 
-            working(lunchtime);
+            working(lunchtime, false);
             
             int dillyDallyBeforeLunch = rng.nextInt((80 - 10) + 1) + 10;
             Thread.sleep(dillyDallyBeforeLunch);
@@ -36,7 +36,7 @@ class Developer extends Thread implements Runnable {
             
             //Go to final meeting somewhere between 4:00 and 4:15
             int workInterval = rng.nextInt((4950 - 4800) + 1) + 4800;
-            working(workInterval);
+            working(workInterval, false);
 
             System.out.println("Developer" + this.getName() + 
                 "Goes to afternoon meeting at " + team.getLead().getPM().getClockTime());
@@ -57,13 +57,13 @@ class Developer extends Thread implements Runnable {
         }
     }
 
-    protected void working(int endTime) throws InterruptedException {
+    protected void working(int endTime, boolean isLead) throws InterruptedException {
       int min = 1;
       while(team.getLead().getPM().getTime() < endTime) {
 
         //Do work, asking questions when necessary until lunch
         int randomQuestionChance = rng.nextInt((max - min) + 1) + min;
-        if(randomQuestionChance == 1) {
+        if(randomQuestionChance == 1 && !isLead) {
           System.out.println("Developer " + this.getName() + " has a question!");
           team.getLead().askQuestion();
         }

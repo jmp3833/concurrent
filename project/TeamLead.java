@@ -42,10 +42,20 @@ class TeamLead extends Developer {
             conferenceRoom.endMeeting();
 
             //Do work (asking questions along the way
-
-
+            super.working(4800, true);
+            
             //Go to final meeting somewhere between 4:00 and 4:15
+            System.out.println("Team Lead " + this.getName() + 
+                "is heading to the afternoon meeting at " + pm.getClockTime());
+            pm.getAfternoonMeetingBarrier().await();
+            
+            //After the meeting, get ready to go home and end the day
+            int dillyDallyBeforeHome = rng.nextInt((150 - 10) + 1) + 10;
+            Thread.sleep(dillyDallyBeforeHome);
 
+            //Leave after afternoon meeting is complete
+            System.out.println("Team Lead " + this.getName() + 
+                "is heading home at " + pm.getClockTime());
 
         } catch (Exception e) {
         }
