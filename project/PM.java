@@ -100,6 +100,10 @@ class PM extends Thread {
     //Sleeps pm for 10 minutes to answer question.
     public synchronized void askPMQuestion() {
         System.out.println("Asking the Project Manager a question at " + getClockTime());
+        if(getTime() > 4800/*4:00pm*/) {
+            System.out.println("Project Manager does not have time to answer this question today");
+            return;
+        }
         try {
             System.out.println("Project Manager is thinking...");
             PM.sleep(100);
