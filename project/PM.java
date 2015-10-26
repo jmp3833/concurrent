@@ -14,6 +14,7 @@ class PM extends Thread {
     private Timer secondTimer;
     private Timer lunchTimer;
     private Timer leaveTimer;
+    private Timer finalTimer;
 
     private Meeting teamLeadStandup;
     private Meeting afternoonMeeting;
@@ -41,9 +42,11 @@ class PM extends Thread {
 
     class meetingTask extends TimerTask {
         Timer timer;
+        int duration;
 
-        public meetingTask(Timer timer) {
+        public meetingTask(Timer timer, int duration) {
             this.timer = timer;
+            this.duration = duration;
         }
 
         @Override
@@ -55,7 +58,13 @@ class PM extends Thread {
                 System.out.println("Project Manager is entering the afternoon Executive Meeting at " + getClockTime());
             } else if (this.timer.equals(lunchTimer)) {
                 System.out.println("Project Manager is heading to lunch at " + getClockTime());
-
+            } else if (this.timer.equals(finalTimer)) {
+                System.out.println("Project manager is entering status update meeting at " + getClockTime()); 
+                try{
+                  afternoonBarrier.await();
+                } catch (Exception e) {
+                
+                }
             } else {
                 System.out.println("Project Mangaer leaving for the day at 5:00pm!");
                 this.timer.cancel();
@@ -63,7 +72,7 @@ class PM extends Thread {
 
             //Sleep for 1 hour
             try {
-                PM.sleep(600);
+                PM.sleep(duration);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -110,6 +119,7 @@ class PM extends Thread {
             secondTimer = new Timer();
             lunchTimer = new Timer();
             leaveTimer = new Timer();
+            finalTimer = new Timer();
 
             //Standup with Team Leads
             cr.holdMeeting();
@@ -117,13 +127,14 @@ class PM extends Thread {
             cr.endMeeting();
 
             //First meeting at 10
-            firstTimer.schedule(new meetingTask(firstTimer), 1200);
+            firstTimer.schedule(new meetingTask(firstTimer, 600), 1200);
             //Lunch at 12
-            lunchTimer.schedule(new meetingTask(lunchTimer), 2400);
+            lunchTimer.schedule(new meetingTask(lunchTimer, 600), 2400);
             //Second meeting at 2
-            secondTimer.schedule(new meetingTask(secondTimer), 3600);
-            //
-            leaveTimer.schedule(new meetingTask(leaveTimer), 5400);
+            secondTimer.schedule(new meetingTask(secondTimer, 600), 3600);
+            //Second meeting at 2
+            finalTimer.schedule(new meetingTask(finalTimer, 150), 4500);
+            leaveTimer.schedule(new meetingTask(leaveTimer, 600), 5400);
         } catch (Exception e) {
         }
     }
