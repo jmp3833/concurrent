@@ -32,7 +32,11 @@ class Developer extends Thread {
             System.out.println("Developer" + this.getName() + 
                 "Goes to lunch at " + team.getLead().getPM().getClockTime());
 
-            Thread.sleep(600);
+            int lunchDuration = rng.nextInt((600 - 300) + 1) + 300;
+            Thread.sleep(lunchDuration);
+            
+            System.out.println("Developer" + this.getName() + 
+                "Leaves lunch at " + team.getLead().getPM().getClockTime());
             
             //Go to final meeting somewhere between 4:00 and 4:15
             int workInterval = rng.nextInt((4950 - 4800) + 1) + 4800;
