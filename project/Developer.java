@@ -1,6 +1,6 @@
 import java.util.Random;
 
-class Developer extends Thread implements Runnable {
+class Developer extends Thread {
 
     protected Random rng;
     protected Team team;
@@ -49,8 +49,8 @@ class Developer extends Thread implements Runnable {
             Thread.sleep(dillyDallyBeforeHome);
 
             //Leave after afternoon meeting is complete
-            System.out.println("Developer" + this.getName() + 
-                "is heading home at " + team.getLead().getPM().getClockTime());
+            System.out.println(" Developer" + this.getName() +
+                " is heading home at " + team.getLead().getPM().getClockTime());
 
         } catch (Exception e) {
             e.printStackTrace();
