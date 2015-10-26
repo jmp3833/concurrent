@@ -15,7 +15,7 @@ class TeamLead extends Developer {
     }
 
     public synchronized void askQuestion(Developer d) {
-    	System.out.println(d.getName() + " is asking Team Lead a question");
+    	System.out.println(d.getName() + " is asking " + getName() + " a question");
         Random rand = new Random();
 	    Boolean answer = rand.nextInt(100) < 50;
 	    if(answer){

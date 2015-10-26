@@ -7,14 +7,14 @@ public class Meeting implements Runnable{
     }
 
     public void run() {
-        System.out.println("Meeting " + name + " has started");
+        System.out.println("Meeting \'" + name + "\' has started");
         try {
             //Sleep 15 minutes
             Thread.sleep(150);
         }
         catch (InterruptedException e) {
         }
-        System.out.println("Meeting " + name + " has ended");
+        System.out.println("Meeting \'" + name + "\' has ended");
     }
 }
 

@@ -29,21 +29,21 @@ class Developer extends Thread {
             int dillyDallyBeforeLunch = rng.nextInt((80 - 10) + 1) + 10;
             Thread.sleep(dillyDallyBeforeLunch);
             
-            System.out.println("Developer" + this.getName() + 
-                "Goes to lunch at " + team.getLead().getPM().getClockTime());
+            System.out.println("Developer " + this.getName() +
+                " Goes to lunch at " + team.getLead().getPM().getClockTime());
 
             int lunchDuration = rng.nextInt((600 - 300) + 1) + 300;
             Thread.sleep(lunchDuration);
             
-            System.out.println("Developer" + this.getName() + 
-                "Leaves lunch at " + team.getLead().getPM().getClockTime());
+            System.out.println("Developer " + this.getName() +
+                " Leaves lunch at " + team.getLead().getPM().getClockTime());
             
             //Go to final meeting somewhere between 4:00 and 4:15
             int workInterval = rng.nextInt((4950 - 4800) + 1) + 4800;
             working(workInterval, false);
 
-            System.out.println("Developer" + this.getName() + 
-                "Goes to afternoon meeting at " + team.getLead().getPM().getClockTime());
+            System.out.println("Developer " + this.getName() +
+                " Goes to afternoon meeting at " + team.getLead().getPM().getClockTime());
             
             //Wait for that afternoon meeting to kick off
             team.getLead().getPM().getAfternoonMeetingBarrier().await();
@@ -53,7 +53,7 @@ class Developer extends Thread {
             Thread.sleep(dillyDallyBeforeHome);
 
             //Leave after afternoon meeting is complete
-            System.out.println("Developer" + this.getName() +
+            System.out.println("Developer " + this.getName() +
                 " is heading home at " + team.getLead().getPM().getClockTime());
 
         } catch (Exception e) {

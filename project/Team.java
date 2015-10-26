@@ -9,7 +9,7 @@ class Team {
 
     public Team(int tn) {
         this.teamNumber = tn;
-        this.standup = new Meeting("Team " + teamNumber);
+        this.standup = new Meeting("Team " + teamNumber + " standup");
         this.standupBarrier = new CyclicBarrier(4, standup);
     }
 

@@ -108,17 +108,17 @@ class PM extends Thread {
 
     private void answerQuestion() {
         TeamLead tl = questionLine.remove();
-        if(getTime() > endTime - 600/*4:00pm*/) {
+        if(getTime() > 4800/*4:00pm*/) {
             System.out.println("Project Manager does not have time to answer " + tl.getName() + "'s question today");
             return;
         }
         try {
-            System.out.println("Project Manager is thinking...");
-            PM.sleep(100);
+            System.out.println("Project Manager starts thinking about " + tl.getName() + "'s question at " + getClockTime());
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Project Manager answered question at " + getClockTime());
+        System.out.println("Project Manager answered " + tl.getName() + "'s question at " + getClockTime());
     }
 
     public void run() {
@@ -147,9 +147,15 @@ class PM extends Thread {
             finalTimer.schedule(new meetingTask(finalTimer, 150), 4500);
             leaveTimer.schedule(new meetingTask(leaveTimer, 600), 5400);
 
-            while(getTime() < endTime - 600 /*4:00pm*/) {
+            //During the day, just answer questions as they come up
+            while(getTime() < 4800 /*4:00pm*/) {
                 if(!questionLine.isEmpty()) {
                     answerQuestion();
+                }
+                try {
+                    Thread.sleep(10);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             //Finish (not) answering the rest of the questions
