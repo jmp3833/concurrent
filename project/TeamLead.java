@@ -2,8 +2,11 @@ import java.util.Random;
 
 class TeamLead extends Developer {
 	private PM pm;
-    public TeamLead(String name, Team t, PM thePm) {
+    private ConferenceRoom conferenceRoom;
+
+    public TeamLead(String name, Team t, PM thePm, ConferenceRoom cr) {
         super(name, t);
+        this.conferenceRoom = cr;
         this.pm = thePm;
     }
 
@@ -19,5 +22,29 @@ class TeamLead extends Developer {
 	    	this.pm.askPMQuestion();
 	    }
 	    
+    }
+
+    public void run() {
+        try {
+            //arrive for the day
+            super.arrive();
+
+            //go to the TeamLead standup meeting
+
+
+            //Hold team standup meeting
+            conferenceRoom.holdMeeting();
+            team.getStandupBarrier().await();
+            conferenceRoom.endMeeting();
+
+            //Do work (asking questions along the way
+
+
+            //Go to final meeting somewhere between 4:00 and 4:15
+
+
+        } catch (Exception e) {
+        }
+
     }
 }

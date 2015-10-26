@@ -10,13 +10,13 @@ class Main {
     Team t3 = new Team(3);
     
     //Team leads
-    TeamLead tl1 = new TeamLead("TL1 Joe", t1, pm);
+    TeamLead tl1 = new TeamLead("TL1 Joe", t1, pm, cr);
     t1.setLead(tl1);
 
-    TeamLead tl2 = new TeamLead("TL2 Larry", t2, pm);
+    TeamLead tl2 = new TeamLead("TL2 Larry", t2, pm, cr);
     t2.setLead(tl2);
     
-    TeamLead tl3 = new TeamLead("TL3 Bob", t3, pm);
+    TeamLead tl3 = new TeamLead("TL3 Bob", t3, pm, cr);
     t3.setLead(tl3);
 
     //Team 1
