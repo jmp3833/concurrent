@@ -23,10 +23,35 @@ class CGrep {
         //Array to store our futures in
         ArrayList<Future<List<String>>> futures = new ArrayList();
 
+        //Submit each grep for execution and save the future
         for(String s : filenames) {
             GrepTask gt = new GrepTask(s, reg);
             Future<List<String>> f = executor.submit(gt);
             futures.add(f);
         }
+
+        int files = filenames.length;
+        int filesDone = 0;
+        //Loop through futures and print results of done tasks
+        while(filesDone < files) {
+            for(Future<List<String>> f : futures) {
+                if(f.isDone()) {
+                    filesDone++;
+                    try {
+                        List<String> results = f.get();
+                        for(String s : results) {
+                            System.out.println(s);
+                        }
+                    } catch (InterruptedException ie) {
+                        //Shouldn't happen
+                        System.out.println("A task was interrupted");
+                    } catch (ExecutionException ee) {
+                        //Thrown if a file is not found
+                        System.out.println(ee.getMessage());
+                    }
+                }
+            }
+        }
+
     }
 }
