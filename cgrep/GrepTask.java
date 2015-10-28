@@ -1,8 +1,10 @@
 import java.util.concurrent.*;
-import java.util.regex.Pattern;
+import java.util.regex.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.*;
 
-class GrepTask implements Callable<String> {
+class GrepTask implements Callable<List<String>> {
   
   protected String filename;
   protected Pattern regex;
@@ -12,13 +14,24 @@ class GrepTask implements Callable<String> {
     this.regex = regex;
   }
 
-  public String call() {
+  public List<String> call() {
+    List<String> results = new ArrayList<String>();
+
+    //Append filename to the beginning of the list to tell them apart
+    results.add(filename);
+
     try {
       BufferedReader br = new BufferedReader(new FileReader(filename));
       String line;
+
       try {
         while((line = br.readLine()) != null) {
-          System.out.println(line); 
+          //Build a pattern matcher on the regex 
+          Matcher m = regex.matcher(line);
+          if(m.matches()) {
+            //Add line to the list if the pattern matches
+            results.add(line);
+          }
         }
       }
       //Swallow buffer exception for now
@@ -27,6 +40,6 @@ class GrepTask implements Callable<String> {
     catch(FileNotFoundException e) {
       System.out.println("The filename " + filename + " was not found"); 
     }
-    return "";
+    return results;
   }
 } 
