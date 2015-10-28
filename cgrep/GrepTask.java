@@ -1,9 +1,10 @@
 import java.util.concurrent.*;
 import java.util.regex.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.io.*;
 
-class GrepTask implements Callable<ArrayList<String>> {
+class GrepTask implements Callable<List<String>> {
   
   protected String filename;
   protected Pattern regex;
@@ -13,8 +14,8 @@ class GrepTask implements Callable<ArrayList<String>> {
     this.regex = regex;
   }
 
-  public ArrayList<String> call() {
-    ArrayList<String> results = new ArrayList<String>();
+  public List<String> call() {
+    List<String> results = new ArrayList<String>();
 
     //Append filename to the beginning of the list to tell them apart
     results.add(filename);
