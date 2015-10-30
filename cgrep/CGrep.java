@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.regex.Pattern;
+import java.util.Arrays;
 
 class CGrep {
     public static void main(String[] args) {
@@ -18,7 +19,7 @@ class CGrep {
         }
 
         //Make our executor service, with a threadpool of 3 and a queue to store other callables in.
-        ExecutorService executor = new ThreadPoolExecutor(3, 3, 60, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(args.length - 3));
+        ExecutorService executor = new ThreadPoolExecutor(3, 3, 60, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(args.length - 1));
 
         //Array to store our futures in
         ArrayList<Future<List<String>>> futures = new ArrayList();
