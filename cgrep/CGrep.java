@@ -38,12 +38,12 @@ class CGrep {
             for(Future<List<String>> f : futures) {
                 if(f.isDone()) {
                     filesDone++;
+                    futures.remove(f);
                     try {
                         List<String> results = f.get();
                         for(String s : results) {
                             System.out.println(s);
                         }
-                        futures.remove(f);
                     } catch (InterruptedException ie) {
                         //Shouldn't happen
                         System.out.println("A task was interrupted");
