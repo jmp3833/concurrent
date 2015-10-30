@@ -53,5 +53,10 @@ class CGrep {
             }
         }
 
+        //Exit
+        executor.shutdown();
+        //Wait for the executor to shutdown
+        while(! executor.isShutdown());
+        System.exit(0);
     }
 }
