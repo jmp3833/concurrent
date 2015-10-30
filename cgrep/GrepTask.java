@@ -14,7 +14,7 @@ class GrepTask implements Callable<List<String>> {
     this.regex = regex;
   }
 
-  public List<String> call() {
+  public List<String> call() throws Exception {
     List<String> results = new ArrayList<String>();
 
     //Append filename to the beginning of the list to tell them apart
@@ -35,10 +35,13 @@ class GrepTask implements Callable<List<String>> {
         }
       }
       //Swallow buffer exception for now
-      catch(Exception e){}
+      catch(IOException e){
+        throw new Exception("An error occurred when attempting to parse" + 
+            "the file " + filename, e); 
+      }
     }
     catch(FileNotFoundException e) {
-      System.out.println("The filename " + filename + " was not found"); 
+      throw new Exception("The filename " + filename + " was not found", e);
     }
     return results;
   }
