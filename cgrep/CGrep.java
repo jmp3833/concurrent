@@ -43,6 +43,7 @@ class CGrep {
                         for(String s : results) {
                             System.out.println(s);
                         }
+                        futures.remove(f);
                     } catch (InterruptedException ie) {
                         //Shouldn't happen
                         System.out.println("A task was interrupted");
