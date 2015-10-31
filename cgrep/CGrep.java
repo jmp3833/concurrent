@@ -22,7 +22,7 @@ class CGrep {
         ExecutorService executor = new ThreadPoolExecutor(3, 3, 60, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(args.length - 1));
 
         //Array to store our futures in
-        ArrayList<Future<List<String>>> futures = new ArrayList();
+        ArrayList<Future<List<String>>> futures = new ArrayList<Future<List<String>>>();
 
         //Submit each grep for execution and save the future
         for(String s : filenames) {
@@ -35,10 +35,11 @@ class CGrep {
         int filesDone = 0;
         //Loop through futures and print results of done tasks
         while(filesDone < files) {
-            for(Future<List<String>> f : futures) {
-                if(f.isDone()) {
+            for(int i = 0; i < futures.size(); i++) {
+                if(futures.get(i).isDone()) {
                     filesDone++;
-                    futures.remove(f);
+                    Future<List<String>> f = futures.get(i);
+                    futures.remove(i);
                     try {
                         List<String> results = f.get();
                         for(String s : results) {
