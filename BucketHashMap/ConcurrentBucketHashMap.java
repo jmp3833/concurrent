@@ -45,7 +45,7 @@ public class ConcurrentBucketHashMap<K, V> {
      * A Bucket holds all the key/value pairs in the map that have
      * the same hash code (modulo the number of buckets). The
      * object consists of an extensible "contents" list protected
-     * with a ReadWriteLock "rwl".
+     * with a ReadWriteLock "readWriteLock".
      */
     class Bucket<K, V> {
         private final List<Pair<K, V>> contents = new ArrayList<Pair<K, V>>();
@@ -59,6 +59,7 @@ public class ConcurrentBucketHashMap<K, V> {
         int size() {
             readLock.lock();
             try {
+                System.out.println("Fetching size of individual bucket. size is: " + contents.size()); 
                 return contents.size();
             } finally {
                 readLock.unlock();
@@ -95,8 +96,10 @@ public class ConcurrentBucketHashMap<K, V> {
         void addPair(Pair<K, V> pair) {
             writeLock.lock();
             try {
+                System.out.println("Adding pair with key " + pair.key + " and value: " + pair.value); 
                 contents.add(pair);
             } finally {
+                System.out.println("Unlocking a write lock for the kv pair"); 
                 writeLock.unlock();
             }
         }
@@ -107,8 +110,10 @@ public class ConcurrentBucketHashMap<K, V> {
         void removePair(int index) {
             writeLock.lock();
             try {
+                System.out.println("removing contents at index " + index); 
                 contents.remove(index);
             } finally {
+                System.out.println("Releasing the write lock on bucket..."); 
                 writeLock.unlock();
             }
         }
@@ -243,5 +248,41 @@ public class ConcurrentBucketHashMap<K, V> {
         }
 
         return (-1) ;
+    }
+
+    public static void main(String[] args) {
+      
+      //Number of buckets inside the hashmap data structure
+      int nBuckets = 4;
+
+      ConcurrentBucketHashMap<String, String> cbhm = new ConcurrentBucketHashMap<String, String>(nBuckets);          
+     
+      //Add elements to the map 
+      cbhm.put("1", "Justin is Cool");
+      cbhm.put("2", "Jesse is pretty alright");
+      cbhm.put("3", "Tom Reichalmayer is the man");
+      cbhm.put("4", "John renner is pretty okay");
+     
+      //Ensure each bucket can be appropriately accessed
+      System.out.println("Element at index 1 = " + cbhm.get("1"));
+      System.out.println("Element at index 2 = " + cbhm.get("2"));
+      System.out.println("Element at index 3 = " + cbhm.get("3"));
+      System.out.println("Element at index 4 = " + cbhm.get("4"));
+
+      //Print initial size
+      System.out.println("Bucket hash map size: " + cbhm.size());
+      
+      //Cause the issue where an element is removed and new elements are added in
+      //which used to throw off the size. 
+      System.out.println("Removing element 1 from the map..."); 
+      cbhm.remove("1");
+
+      System.out.println("Adding two new elements to the mix..."); 
+      cbhm.put("5", "John Cena");
+      cbhm.put("6", "Hulk Hogan");
+     
+      //Ensure that the size is correct
+      System.out.println("Bucket hash map size = " + cbhm.size());
+
     }
 }

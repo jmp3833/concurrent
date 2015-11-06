@@ -1,0 +1,49 @@
+//Initalize 4 elements in the BucketHashMap
+Fetching size of individual bucket. size is: 0
+Adding pair with key 1 and value: Justin is Cool
+Unlocking a write lock for the kv pair
+Fetching size of individual bucket. size is: 0
+Adding pair with key 2 and value: Jesse is pretty alright
+Unlocking a write lock for the kv pair
+Fetching size of individual bucket. size is: 0
+Adding pair with key 3 and value: Tom Reichalmayer is the man
+Unlocking a write lock for the kv pair
+Fetching size of individual bucket. size is: 0
+Adding pair with key 4 and value: John renner is pretty okay
+Unlocking a write lock for the kv pair
+
+//Calculate size of current bucket hash map
+
+Fetching size of individual bucket. size is: 1
+Element at index 1 = Justin is Cool
+Fetching size of individual bucket. size is: 1
+Element at index 2 = Jesse is pretty alright
+Fetching size of individual bucket. size is: 1
+Element at index 3 = Tom Reichalmayer is the man
+Fetching size of individual bucket. size is: 1
+Element at index 4 = John renner is pretty okay
+Fetching size of individual bucket. size is: 1
+Fetching size of individual bucket. size is: 1
+Fetching size of individual bucket. size is: 1
+Fetching size of individual bucket. size is: 1
+Bucket hash map size: 4
+
+//Remove element and add some new elements in
+Removing element 1 from the map...
+Fetching size of individual bucket. size is: 1
+removing contents at index 0
+Releasing the write lock on bucket...
+Adding two new elements to the mix...
+Fetching size of individual bucket. size is: 0
+Adding pair with key 5 and value: John Cena
+Unlocking a write lock for the kv pair
+Fetching size of individual bucket. size is: 1
+Adding pair with key 6 and value: Hulk Hogan
+
+//Calculate the size of the bucket hash map again
+Unlocking a write lock for the kv pair
+Fetching size of individual bucket. size is: 1
+Fetching size of individual bucket. size is: 1
+Fetching size of individual bucket. size is: 2
+Fetching size of individual bucket. size is: 1
+Bucket hash map size = 5
