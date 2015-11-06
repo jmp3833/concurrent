@@ -16,7 +16,7 @@ import java.util.concurrent.locks.* ;
  * In this version, all synchronization is done using built-in
  * Java synchronized blocks. This is inefficient, as it does not
  * support concurrent reading, and does not allow a consistent
- * compoutation of the size.
+ * computation of the size.
  */
 
 public class ConcurrentBucketHashMap<K, V> {
@@ -48,42 +48,69 @@ public class ConcurrentBucketHashMap<K, V> {
      * with a ReadWriteLock "rwl".
      */
     class Bucket<K, V> {
-        private final List<Pair<K, V>> contents =
-                new ArrayList<Pair<K, V>>() ;
+        private final List<Pair<K, V>> contents = new ArrayList<Pair<K, V>>();
+        private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+        private final Lock readLock = readWriteLock.readLock();
+        private final Lock writeLock = readWriteLock.writeLock();
 
         /*
          * Return the current Bucket size.
          */
         int size() {
-            return contents.size() ;
+            readLock.lock();
+            try {
+                return contents.size();
+            } finally {
+                readLock.unlock();
+            }
         }
 
         /*
          * Get the Pair at location 'i' in the Bucket.
          */
         Pair<K, V> getPair(int i) {
-            return contents.get(i) ;
+            readLock.lock();
+            try {
+                return contents.get(i);
+            } finally {
+                readLock.unlock();
+            }
         }
 
         /*
          * Replace the Pair at location 'i' in the Bucket.
          */
         void putPair(int i, Pair<K, V> pair) {
-            contents.set(i, pair) ;
+            writeLock.lock();
+            try {
+                contents.set(i, pair);
+            } finally {
+                writeLock.lock();
+            }
         }
 
         /*
          * Add a Pair to the Bucket.
          */
         void addPair(Pair<K, V> pair) {
-            contents.add(pair) ;
+            writeLock.lock();
+            try {
+                contents.add(pair);
+            } finally {
+                writeLock.unlock();
+            }
         }
 
         /*
          * Remove a Pair from the Bucket by position.
          */
         void removePair(int index) {
-            contents.remove(index) ;
+            writeLock.lock();
+            try {
+                contents.remove(index);
+            } finally {
+                writeLock.unlock();
+            }
         }
     }
 
@@ -208,8 +235,8 @@ public class ConcurrentBucketHashMap<K, V> {
 
     /*
      * Find a Pair<K, V> for the given key in the given Bucket,
-     * returnning the pair's index in the Bucket (or -1 if
-     * unfound).
+     * returning the pair's index in the Bucket (or -1 if
+     * not found).
      *
      * Assumes the lock for the Bucket has been acquired.
      */
