@@ -4,8 +4,8 @@ import java.util.concurrent.*;
 import java.util.regex.Pattern;
 import java.util.Arrays;
 
-import akka.actor.*;
 import akka.actor.Actors.*;
+import akka.actor.*;
 
 class CGrep {
     public static void main(String[] args) {
@@ -21,7 +21,7 @@ class CGrep {
             filenames[i - 1] = args [i]; 
         }
         
-        ActorRef collectionRef = actorOf(CollectionActor.class);
+        ActorRef collectionRef = Actors.actorOf(CollectionActor.class);
         Configure cf = new Configure("in.txt", collectionRef, reg);
 
         ScanActor scan = new ScanActor(cf);
