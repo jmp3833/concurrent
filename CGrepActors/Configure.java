@@ -10,5 +10,6 @@ class Configure {
     public Configure(String fileName, ActorRef collection, Pattern reg) {
         this.fileName = fileName;
         this.collection = collection;    
+        this.reg = reg;
     }
 }
