@@ -19,36 +19,19 @@ class ScanActor extends UntypedActor {
   public void onReceive(Object msg) {
   
   }
-
-  public List<String> call() throws Exception {
-    List<String> results = new ArrayList<String>();
-
-    //Append filename to the beginning of the list to tell them apart
-    results.add(filename);
-
-    try {
-      BufferedReader br = new BufferedReader(new FileReader(filename));
-      String line;
-
-      try {
-        while((line = br.readLine()) != null) {
-          //Build a pattern matcher on the regex 
-          Matcher m = regex.matcher(line);
-          if(m.matches()) {
-            //Add line to the list if the pattern matches
-            results.add(line);
-          }
-        }
-      }
-      //Swallow buffer exception for now
-      catch(IOException e){
-        throw new Exception("An error occurred when attempting to parse" + 
-            "the file " + filename, e); 
-      }
-    }
-    catch(FileNotFoundException e) {
-      throw new Exception("The filename " + filename + " was not found", e);
-    }
-    return results;
-  }
 } 
+
+/*
+ * Object message to display results found by the collection actor
+ */
+class Found {
+  
+  //Everything we need to find the results of a grep 
+  private String fileName;
+  private String resultsFound;
+
+  public Found (String fileName, String resultsFound) {
+    this.fileName = fileName;  
+    this.resultsFound = resultsFound;
+  }
+}
