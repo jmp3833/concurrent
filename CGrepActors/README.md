@@ -16,9 +16,3 @@ of the file that is being processed in addition to any results of the grep that 
 
 NOTE: The regular expression passed in on the command line must be wrapped in quotes
 in order to ensure that it works appropriately. 
-
-File Structure: 
-
-CGrep.java - take in command line arguments, construct executor objects and collect results
-GrepTask.java - Callable object to compute the results of grep on a single file. 
-
