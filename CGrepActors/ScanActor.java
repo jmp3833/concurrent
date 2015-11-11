@@ -1,5 +1,4 @@
 import java.util.concurrent.*;
-import java.util.regex.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
@@ -7,13 +6,10 @@ import java.io.*;
 import akka.actor.*;
 
 class ScanActor extends UntypedActor {
-  
-  protected String filename;
-  protected Pattern regex;
 
-  public ScanActor(String filename, Pattern regex) {
-    this.filename = filename; 
-    this.regex = regex;
+  private Configure configure;
+  public ScanActor(Configure configure) {
+  
   }
 
   public void onReceive(Object msg) {

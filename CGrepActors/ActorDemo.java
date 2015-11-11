@@ -25,7 +25,6 @@ class Values {
 /*
  * Abstract computational class.
  */
-
 abstract class Computer extends UntypedActor {
     private final ActorRef reporter ;
 

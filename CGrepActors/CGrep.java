@@ -21,28 +21,10 @@ class CGrep {
             filenames[i - 1] = args [i]; 
         }
         
-        ActorRef collectionActorRef = actorOf(new CollectionActor());
-        CollectionActor collect = new CollectionActor();
-        ScanActor scan = new ScanActor(new Configure("in.txt", collectionActorRef, reg));
+        ActorRef collectionRef = actorOf(CollectionActor.class);
+        Configure cf = new Configure("in.txt", collectionRef, reg);
 
+        ScanActor scan = new ScanActor(cf);
     }
-}
-
-class Configure {
-    
-    String fileName;
-    Pattern reg;
-    ActorRef collection;  
-
-    public Configure(String fileName, ActorRef collection, Pattern reg) {
-        this.fileName = fileName;
-        this.collection = collection;    
-    }
-}
-
-class CollectionActor extends UntypedActor {
-  public void onReceive(Object message) {
-  
-  }
 }
 
