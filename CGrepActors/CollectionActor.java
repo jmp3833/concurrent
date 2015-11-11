@@ -1,6 +1,13 @@
 import akka.actor.*;
 
 class CollectionActor extends UntypedActor {
+
+  private int numProcessed = 0;
+
+  public void addProcessed (){
+    this.numProcessed++;
+  }
+
   public void onReceive(Object message) {
     
     int numFiles = 0;
@@ -18,6 +25,11 @@ class CollectionActor extends UntypedActor {
       for(int i = 0; i < result.resultsFound.size(); i++) {
         System.out.println(result.resultsFound.get(i)); 
       }
+      this.addProcessed();
+    }
+    
+    if (this.numProcessed == numFiles) {
+      Actors.registry().shutdownAll();
     }
   }
 }
