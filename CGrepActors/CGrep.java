@@ -20,14 +20,20 @@ class CGrep {
     }
 
     ActorRef collectionRef = Actors.actorOf(CollectionActor.class);
+    collectionRef.start();
+
+    //Let the CollectionActor know how many files to expect
+    collectionRef.tell(new FileCount(filenames.length));
     
     //Fire off a scan actor for each file
     for(String s : filenames) {
       Configure conf = new Configure(s, collectionRef, reg);
       ActorRef sc = Actors.actorOf(ScanActor.class);  
+      sc.start();
       //Let the messages fly!
       sc.tell(conf);
     }         
   }
 }
+
 
