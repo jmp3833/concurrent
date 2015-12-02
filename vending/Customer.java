@@ -26,11 +26,12 @@ public class Customer {
       public void run() { 
         replenish();
         if (keepRunning.get()) replenishTimer.schedule(
-          this, 1, TimeUnit.SECONDS);
+          this, 3, TimeUnit.SECONDS);
       }
-    }, 1, TimeUnit.SECONDS);
+    }, 3, TimeUnit.SECONDS);
   }
   
+
   public static Customer create() {
     final Customer c = new Customer();
     c.init();
@@ -77,7 +78,7 @@ public class Customer {
     }.execute();
   }
 
-  private void replenish() {
+  public void replenish() {
     new Atomic<Object>() {
       public Object atomically() {
         long currentCookieLevel = cookieLevel.get();
