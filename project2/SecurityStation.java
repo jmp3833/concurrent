@@ -10,12 +10,12 @@ class SecurityStation extends UntypedActor {
     public void onReceive(Object msg) {
 
         // Body Scan logic. Message should have the body and pass/ fail.
-        if(msg instanceof BodyScanned) {
+        if(msg instanceof BodyScannedRequest) {
 
         }
 
         // Bag Scan logic. Message should have the bag and pass/ fail.
-        if(msg instanceof BagScanned) {
+        if(msg instanceof BagScannedRequest) {
 
         }
 
