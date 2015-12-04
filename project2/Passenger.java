@@ -12,4 +12,8 @@ public class Passenger {
             this.bags.add(new Bag(this));
         }
     }
+
+    public List<Bag> getBags() {
+        return bags;
+    }
 }
