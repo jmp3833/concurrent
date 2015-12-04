@@ -11,12 +11,18 @@ class SecurityStationActor extends UntypedActor {
 
         // Body Scan logic. Message should have the body and pass/ fail.
         if(msg instanceof BodyScannedRequest) {
+            BodyScannedRequest bodySR = (BodyScannedRequest) msg;
+            if (bodySR.passed) {
 
+            }
         }
 
         // Bag Scan logic. Message should have the bag and pass/ fail.
         if(msg instanceof BagScannedRequest) {
-
+            BagScannedRequest bagSR = (BagScannedRequest) msg;
+            if (bagSR.passed) {
+                
+            }
         }
 
         //Shut the system down
