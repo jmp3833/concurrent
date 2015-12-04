@@ -19,6 +19,7 @@ class TSAGeneralActor extends UntypedActor {
    * bag, or receive a message to shut down the system at the Scanner level.
    */
   public void onReceive(Object msg) {
+  
     //Shut the system down
     if(msg instanceof ShutdownRequest) {
     
