@@ -21,10 +21,9 @@ class ScanActor extends UntypedActor {
     }
 
     //Shut the system down
-    else if(msg instanceof ShutdowmRequest) {
+    else if(msg instanceof ShutdownRequest) {
     
     }
-    configure.collection.tell(itemsFound);
   }
 } 
 

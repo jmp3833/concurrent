@@ -7,32 +7,13 @@ import akka.actor.*;
 
 class Main {
   public static void main(String[] args) {
-    if(args.length < 2) {
-      System.err.println("Not enough arguments");
-      System.exit(1);
-    }
-    String pattern = args[0];
-    Pattern reg = Pattern.compile(pattern);
 
-    String[] filenames = new String[args.length - 1];
-    for(int i = 1; i < args.length; i++) {
-      filenames[i - 1] = args [i]; 
-    }
+    ActorRef scan = Actors.actorOf(ScanActor.class);
+    scan.start();
 
-    ActorRef collectionRef = Actors.actorOf(CollectionActor.class);
-    collectionRef.start();
-
-    //Let the CollectionActor know how many files to expect
-    collectionRef.tell(new FileCount(filenames.length));
+    //Send a dummy ScanRequest
+    scan.tell(new ScanRequest());
     
-    //Fire off a scan actor for each file
-    for(String s : filenames) {
-      Configure conf = new Configure(s, collectionRef, reg);
-      ActorRef sc = Actors.actorOf(ScanActor.class);  
-      sc.start();
-      //Let the messages fly!
-      sc.tell(conf);
-    }         
   }
 }
 
