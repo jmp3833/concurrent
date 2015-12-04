@@ -1,3 +1,3 @@
 class DocumentCheckRequest {
-
+    Passenger p;
 }
