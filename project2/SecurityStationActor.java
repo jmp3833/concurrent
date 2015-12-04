@@ -1,7 +1,7 @@
 import akka.actor.*;
 import akka.actor.UntypedActor;
 
-class SecurityStation extends UntypedActor {
+class SecurityStationActor extends UntypedActor {
 
     /*
      * Recieve a BodyScanned and BagScanned object with the respective object
