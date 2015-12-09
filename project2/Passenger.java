@@ -4,6 +4,7 @@ import java.util.List;
 public class Passenger {
     String name;
     List<Bag> bags;
+    int numBags;
 
     public Passenger(String n, int numBags) {
         this.name = n;
@@ -15,5 +16,13 @@ public class Passenger {
 
     public List<Bag> getBags() {
         return bags;
+    }
+
+    public Bag getBagAtIndex(int index) {
+      return this.bags.get(index);
+    }
+
+    public int getNumBags() {
+      return this.numBags; 
     }
 }
