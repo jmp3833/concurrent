@@ -2,18 +2,25 @@ import akka.actor.*;
 import akka.actor.UntypedActor;
 
 class SecurityStationActor extends UntypedActor {
-
+    ActorRef jailRef;
     /*
      * Recieve a BodyScanned and BagScanned object with the respective object
      * and pass/fail or receive a message to shut down the system at the station.
      */
     public void onReceive(Object msg) {
+        if(msg instanceof InitRequest){
+            jailRef = ((InitRequest) msg).jail;
+        }
 
         // Body Scan logic. Message should have the body and pass/ fail.
         if(msg instanceof BodyScannedRequest) {
             BodyScannedRequest bodySR = (BodyScannedRequest) msg;
             if (bodySR.passed) {
 
+            } else {
+                // failed the inspection
+                Passenger criminal = ((BodyScannedRequest) msg).p;
+                jailRef.tell(new AddPrisonerRequest(criminal));
             }
         }
 
@@ -21,7 +28,11 @@ class SecurityStationActor extends UntypedActor {
         if(msg instanceof BagScannedRequest) {
             BagScannedRequest bagSR = (BagScannedRequest) msg;
             if (bagSR.passed) {
-                
+
+            } else {
+                // failed the inspection
+                Passenger criminal = ((BagScannedRequest) msg).b.getPassenger();
+                jailRef.tell(new AddPrisonerRequest(criminal));
             }
         }
 
