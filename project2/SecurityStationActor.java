@@ -35,9 +35,7 @@ class SecurityStationActor extends UntypedActor {
         // Bag Scan logic. Message should have the bag and pass/ fail.
         if(msg instanceof BagScannedRequest) {
             BagScannedRequest bagSR = (BagScannedRequest) msg;
-            if (bagSR.passed) {
-
-            } else {
+            if (!bagSR.passed) {
                 // failed the inspection
                 Passenger criminal = ((BagScannedRequest) msg).b.getPassenger();
                 jailRef.tell(new AddPrisonerRequest(criminal));

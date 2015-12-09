@@ -5,5 +5,6 @@ public class BagScannedRequest {
     public BagScannedRequest(Bag b, boolean p) {
         this.b = b;
         passed = p;
+        b.scanned(p);
     }
 }
