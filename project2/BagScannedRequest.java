@@ -2,12 +2,8 @@ public class BagScannedRequest {
     Bag b;
     boolean passed;
 
-    public BagScannedRequest(Bag b) {
+    public BagScannedRequest(Bag b, boolean p) {
         this.b = b;
-        passed = false;
-    }
-
-    public void setPassed(boolean pass) {
-        this.passed = pass;
+        passed = p;
     }
 }

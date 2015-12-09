@@ -17,19 +17,19 @@ class LineActor extends UntypedActor {
   public void onReceive(Object msg) {
     //Shut the system down
     if(msg instanceof ShutdownRequest) {
-
+      //Tell all my pals that I'm shutting down, then shut down 
+      secStation.tell(msg);
+      bagScanner.tell(msg);
+      bodyScanner.tell(msg);
     }
 
     if(msg instanceof AddToLineRequest) {
-
-    }
-    if(msg instanceof PassToScannerRequest) {
-
+      //Pass baggage and passengers to appropriate scanners
     }
 
-    if(msg instanceof InitLineRequest) {
+    if(msg instanceof InitRequest) {
       //Setup ref to all relevant actors on the chain    
-      InitLineRequest ilr = (InitLineRequest) msg;
+      InitRequest ilr = (InitRequest) msg;
       this.secStation = ilr.secStation; 
       this.bagScanner = ilr.bagScanner; 
       this.bodyScanner = ilr.bodyScanner; 

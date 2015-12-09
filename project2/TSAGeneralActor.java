@@ -21,12 +21,17 @@ class TSAGeneralActor extends UntypedActor {
   
     //Shut the system down
     if(msg instanceof ShutdownRequest) {
+      System.out.println("TSA General actor is initiating a shutdown");
+
       //Propogate message to all lines
       while(lines.peek() != null) {
         ActorRef l = lines.remove(); 
 
         //Spread the word, we're shutting down! 
         l.tell(msg);
+
+        //Stop the specific line 
+        l.stop();
       }
     }
 
