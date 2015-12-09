@@ -46,7 +46,7 @@ class TSAGeneralActor extends UntypedActor {
       Passenger p = d.getPassenger();
 
       //1 in 5 chance of being True
-      boolean problem = rng.nextInt(5 - 1 + 1) + 1 == 2? true : false;
+      boolean problem = FailureChance.randomFailure();
 
       if(problem) {
         //Reject passenger

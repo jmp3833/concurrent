@@ -8,14 +8,33 @@ class ScanActor extends UntypedActor {
    */
   public void onReceive(Object msg) {
 
+    if(msg instanceof InitRequest){
+      ActorRef jailRef = ((InitRequest) msg).jail;
+    }
     //Perform a Scan operation on the given user or baggage
-    if(msg instanceof ScanRequest) {
-    
+    if(msg instanceof BagScannedRequest) {
+      if (FailureChance.randomFailure()){
+        // passed
+      } else {
+        // failed the inspection
+        Passenger criminal = ((BagScannedRequest) msg).b.getPassenger();
+        jailRef.tell(new AddPrisonerRequest(criminal));
+      }
+    }
+
+    else if(msg instanceof BodyScannedRequest) {
+      if (FailureChance.randomFailure()){
+        // passed
+      } else {
+        // failed the inspection
+        Passenger criminal = ((BodyScannedRequest) msg).p;
+        jailRef.tell(new AddPrisonerRequest(criminal));
+      }
     }
 
     //Shut the system down
     else if(msg instanceof ShutdownRequest) {
-    
+
     }
   }
 } 
