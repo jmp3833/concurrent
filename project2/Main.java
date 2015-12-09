@@ -69,8 +69,13 @@ class Main {
     }
 
     //Shut it all down when we're done
+    try {
+      Thread.sleep(500);
+    } catch(Exception e) {
+      e.printStackTrace(); 
+    }
+
     System.out.println("System is initiating the shutdown process...");
     general.tell(new ShutdownRequest()); 
-    general.stop();
   }
 }

@@ -34,6 +34,7 @@ class ScanActor extends UntypedActor {
 
     //Shut the system down
     else if(msg instanceof ShutdownRequest) {
+      System.out.println("A scanner has recieved a message to shut down");
       secStationRef.tell(msg);
     }
   }

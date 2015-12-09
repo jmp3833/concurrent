@@ -1,4 +1,4 @@
-import akka.actor.UntypedActor;
+import akka.actor.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class JailActor extends UntypedActor {
         //Init message
         if(msg instanceof InitRequest) {
             System.out.println("Jail is initalized... ");
-            numLines = ((InitRequest) msg).numLines;
+            this.numLines = ((InitRequest) msg).numLines;
         }
 
         //Add prisoner to the jail
@@ -29,11 +29,15 @@ public class JailActor extends UntypedActor {
         if(msg instanceof ShutdownRequest) {
             System.out.println("Jail has been notified to shut down ");
             stationsShutdown++;
+            System.out.println("Stations shut down: " + stationsShutdown );
+            System.out.println("numLines: " + numLines);
             if(stationsShutdown == numLines) {
                 System.out.println("Moving prisoners to real jail:");
                 for(Passenger p : detainees) {
                     System.out.println("  " + p.name);
                 }
+                System.out.println("Stopping the system");
+                Actors.registry().shutdownAll();
             }
         }
     }

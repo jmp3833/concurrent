@@ -16,9 +16,10 @@ class LineActor extends UntypedActor {
     if(msg instanceof ShutdownRequest) {
       //Tell all my pals that I'm shutting down, then shut down 
       System.out.println("A line has been notified to shut down");
-      secStation.tell(msg);
+
       bagScanner.tell(msg);
       bodyScanner.tell(msg);
+
     }
 
     if(msg instanceof AddToLineRequest) {
