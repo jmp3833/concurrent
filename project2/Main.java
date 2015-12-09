@@ -12,7 +12,7 @@ class Main {
   public static void main(String[] args) {
     
     //Configurable parameters of app
-    final int NUM_PASSENGERS = 5;
+    final int NUM_PASSENGERS = 100;
     final int MAX_BAGS = 5;
     final int MIN_BAGS = 1;
     final int NUM_LINES = 2;
@@ -31,6 +31,7 @@ class Main {
 
     for(int line = 0; line < NUM_LINES; line++) {
       InitRequest jailRequest = new InitRequest(null, null, null, jail, NUM_LINES);
+      jail.tell(jailRequest);
 
       //Setup security station and scanners per line
       ActorRef sec = Actors.actorOf(SecurityStationActor.class);
