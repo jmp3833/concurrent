@@ -22,8 +22,22 @@ class SecurityStationActor extends UntypedActor {
         if(msg instanceof BodyScannedRequest) {
             BodyScannedRequest bodySR = (BodyScannedRequest) msg;
             if (bodySR.passed) {
+                int passed = 0;
                 for(Bag b : bodySR.p.bags) {
-                    
+                    if(b.getScanCompleted() && !b.getScanPassed()) {
+                        //A bag failed a check
+                        jailRef.tell(new AddPrisonerRequest(bodySR.p));
+                        break;
+                    }
+                    if(b.getScanCompleted() && b.getScanPassed()) {
+                        passed++;
+                    }
+                }
+                if(passed == bodySR.p.getNumBags()) {
+                    //Passenger passed all checks
+                    System.out.println("Passenger " + bodySR.p.name + " finishes passing through security");
+                } else {
+                    waiting.add(bodySR.p);
                 }
             } else {
                 // failed the inspection

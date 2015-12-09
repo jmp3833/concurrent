@@ -6,6 +6,12 @@ public class Bag {
     public Passenger getPassenger() {
         return pass;
     }
+    public boolean getScanCompleted() {
+        return scanCompleted;
+    }
+    public boolean getScanPassed() {
+        return scanPassed;
+    }
 
     public Bag(Passenger p) {
         this.pass = p;
