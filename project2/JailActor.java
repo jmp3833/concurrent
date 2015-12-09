@@ -11,6 +11,7 @@ public class JailActor extends UntypedActor {
     public void onReceive(Object msg) {
         //Init message
         if(msg instanceof InitRequest) {
+            System.out.println("Jail is initalized... ");
             numLines = ((InitRequest) msg).numLines;
         }
 
@@ -26,6 +27,7 @@ public class JailActor extends UntypedActor {
 
         //Take all the prisoners to real jail
         if(msg instanceof ShutdownRequest) {
+            System.out.println("Jail has been notified to shut down ");
             stationsShutdown++;
             if(stationsShutdown == numLines) {
                 System.out.println("Moving prisoners to real jail:");

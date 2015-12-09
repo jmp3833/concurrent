@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class SecurityStationActor extends UntypedActor {
-    List<Passenger> waiting = new ArrayList<>();
+    private List<Passenger> waiting = new ArrayList<>();
     int shutdownsReceived = 0;
     ActorRef jailRef;
 
@@ -41,6 +41,8 @@ class SecurityStationActor extends UntypedActor {
                 }
             } else {
                 // failed the inspection
+                System.out.println("Sending passenger " + ((BodyScannedRequest) msg).p.name +
+                    " from sec station to jail");
                 Passenger criminal = ((BodyScannedRequest) msg).p;
                 jailRef.tell(new AddPrisonerRequest(criminal));
             }
@@ -56,9 +58,12 @@ class SecurityStationActor extends UntypedActor {
             }
 
             //Check all of the waiting passengers to see if their bags have passed
-            for(Passenger p : waiting) {
+            for(int i = 0; i < waiting.size(); i++) {
                 int passed = 0;
-                for(Bag b : p.bags) {
+                Passenger p = waiting.get(i);
+
+                for(int j = 0; j < p.bags.size(); j++) {
+                    Bag b = p.bags.get(j);
                     if(b.getScanCompleted() && !b.getScanPassed()) {
                         //A bag failed a check
                         jailRef.tell(new AddPrisonerRequest(p));

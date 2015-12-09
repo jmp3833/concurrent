@@ -15,6 +15,7 @@ class LineActor extends UntypedActor {
     //Shut the system down
     if(msg instanceof ShutdownRequest) {
       //Tell all my pals that I'm shutting down, then shut down 
+      System.out.println("A line has been notified to shut down");
       secStation.tell(msg);
       bagScanner.tell(msg);
       bodyScanner.tell(msg);
@@ -24,6 +25,7 @@ class LineActor extends UntypedActor {
       //Pass baggage and passengers to appropriate scanners
       AddToLineRequest atl = (AddToLineRequest) msg; 
       Passenger p = atl.getPassenger(); 
+      System.out.println("Adding passenger " + p.name + " to line with it's baggage");
       
       //Send the baggage through 
       for(int i = 0; i < p.getNumBags(); i++) {
