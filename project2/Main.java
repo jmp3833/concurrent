@@ -48,7 +48,7 @@ class Main {
 
       Passenger p = new Passenger(name, numBags);
 
-      System.out.println("Passenger " + p.name + " headed to the document check!");
+      System.out.println("Passenger " + p.name + " headed to the document check with " +  numBags + " bags!");
       general.tell(new DocumentCheckRequest(p)); 
     }
 
