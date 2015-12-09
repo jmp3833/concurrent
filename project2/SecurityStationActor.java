@@ -1,7 +1,12 @@
 import akka.actor.*;
 import akka.actor.UntypedActor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class SecurityStationActor extends UntypedActor {
+    List<Passenger> waiting = new ArrayList<>();
+    int shutdownsReceived = 0;
 
     /*
      * Recieve a BodyScanned and BagScanned object with the respective object
@@ -13,7 +18,12 @@ class SecurityStationActor extends UntypedActor {
         if(msg instanceof BodyScannedRequest) {
             BodyScannedRequest bodySR = (BodyScannedRequest) msg;
             if (bodySR.passed) {
-
+                for(Bag b : bodySR.p.bags) {
+                    
+                }
+            } else {
+                //Body scan failed
+                //TODO tell jail
             }
         }
 
@@ -27,7 +37,10 @@ class SecurityStationActor extends UntypedActor {
 
         //Shut the system down
         else if(msg instanceof ShutdownRequest) {
-
+            this.shutdownsReceived++;
+            if(this.shutdownsReceived == 2) {
+                //TODO send shutdown to jail
+            }
         }
     }
 }
