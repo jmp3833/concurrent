@@ -10,12 +10,9 @@ class TSAGeneralActor extends UntypedActor {
   private boolean isRunning = true;
   private Random rng = new Random();
 
-  //Queue of passengers waiting to enter a line at the TSA
-  Queue<Passenger> passengers = new PriorityQueue<Passenger>();
-
   //Collection of lines that are available
-  Queue<ActorRef> lines = new PriorityQueue<ActorRef>();
-  
+  public Queue<ActorRef> lines;
+
   /*
    * Recieve a ScanRequest object with a passenger and its cooresponding
    * bag, or receive a message to shut down the system at the Scanner level.
@@ -32,19 +29,28 @@ class TSAGeneralActor extends UntypedActor {
         l.tell(msg);
       }
     }
+
+    if(msg instanceof PriorityQueue) {
+      //Unchecked cast to set lines in TSAGeneral
+      @SuppressWarnings("unchecked")
+      PriorityQueue<ActorRef> lns = (PriorityQueue<ActorRef>) msg;
+
+      this.lines = lns;
+      System.out.println("General got his lines!"); 
+    }
     
     //Turn away passengers with document problems with a probability of 20%
     if(msg instanceof DocumentCheckRequest) {
 
-      //Dequeue passenger
-      Passenger p = passengers.remove();
+      DocumentCheckRequest d = (DocumentCheckRequest) msg;
+      Passenger p = d.getPassenger();
 
       //1 in 5 chance of being True
       boolean problem = rng.nextInt(5 - 1 + 1) + 1 == 2? true : false;
 
       if(problem) {
-        //Reject passenger, send them to beginning of line
-        passengers.add(p);
+        //Reject passenger
+        System.out.println("Passenger " + p.name + " was rejected from the document check");
       }
       else {
         //Grab next line in order
