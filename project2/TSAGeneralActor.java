@@ -53,7 +53,7 @@ class TSAGeneralActor extends UntypedActor {
       //1 in 5 chance of being True
       boolean problem = FailureChance.randomFailure();
 
-      if(problem) {
+      if(!problem) {
         //Reject passenger
         System.out.println("Passenger " + p.name + " was rejected from the document check");
       }
