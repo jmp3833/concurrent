@@ -54,13 +54,34 @@ class SecurityStationActor extends UntypedActor {
                 Passenger criminal = ((BagScannedRequest) msg).b.getPassenger();
                 jailRef.tell(new AddPrisonerRequest(criminal));
             }
+
+            //Check all of the waiting passengers to see if their bags have passed
+            for(Passenger p : waiting) {
+                int passed = 0;
+                for(Bag b : p.bags) {
+                    if(b.getScanCompleted() && !b.getScanPassed()) {
+                        //A bag failed a check
+                        jailRef.tell(new AddPrisonerRequest(p));
+                        break;
+                    }
+                    if(b.getScanCompleted() && b.getScanPassed()) {
+                        passed++;
+                    }
+                }
+                if(passed == p.getNumBags()) {
+                    //Passenger passed all checks
+                    System.out.println("Passenger " + p.name + " finishes passing through security");
+                } else {
+                    waiting.add(p);
+                }
+            }
         }
 
         //Shut the system down
         else if(msg instanceof ShutdownRequest) {
             this.shutdownsReceived++;
             if(this.shutdownsReceived == 2) {
-                //TODO send shutdown to jail
+                jailRef.tell(new ShutdownRequest());
             }
         }
     }
