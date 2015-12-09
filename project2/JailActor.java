@@ -9,7 +9,11 @@ public class JailActor extends UntypedActor {
     public void onReceive(Object msg) {
         //Add prisoner to the jail
         if(msg instanceof AddPrisonerRequest) {
-            detainees.add(((AddPrisonerRequest) msg).p);
+            // if they are already in the jail, don't send them again
+            Passenger passenger = ((AddPrisonerRequest) msg).p;
+            if (detainees.indexOf(passenger) == -1){
+                detainees.add(passenger);
+            }
         }
 
         //Take all the prisoners to real jail

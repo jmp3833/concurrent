@@ -3,7 +3,6 @@ import akka.actor.*;
 class ScanActor extends UntypedActor {
   ActorRef secStationRef;
 
-
   /*
    * Recieve a ScanRequest object with a passenger and its cooresponding
    * bag, or receive a message to shut down the system at the Scanner level.
