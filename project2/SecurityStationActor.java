@@ -7,12 +7,16 @@ import java.util.List;
 class SecurityStationActor extends UntypedActor {
     List<Passenger> waiting = new ArrayList<>();
     int shutdownsReceived = 0;
+    ActorRef jailRef;
 
     /*
      * Recieve a BodyScanned and BagScanned object with the respective object
      * and pass/fail or receive a message to shut down the system at the station.
      */
     public void onReceive(Object msg) {
+        if(msg instanceof InitRequest){
+            jailRef = ((InitRequest) msg).jail;
+        }
 
         // Body Scan logic. Message should have the body and pass/ fail.
         if(msg instanceof BodyScannedRequest) {
@@ -22,8 +26,9 @@ class SecurityStationActor extends UntypedActor {
                     
                 }
             } else {
-                //Body scan failed
-                //TODO tell jail
+                // failed the inspection
+                Passenger criminal = ((BodyScannedRequest) msg).p;
+                jailRef.tell(new AddPrisonerRequest(criminal));
             }
         }
 
@@ -31,7 +36,11 @@ class SecurityStationActor extends UntypedActor {
         if(msg instanceof BagScannedRequest) {
             BagScannedRequest bagSR = (BagScannedRequest) msg;
             if (bagSR.passed) {
-                
+
+            } else {
+                // failed the inspection
+                Passenger criminal = ((BagScannedRequest) msg).b.getPassenger();
+                jailRef.tell(new AddPrisonerRequest(criminal));
             }
         }
 
