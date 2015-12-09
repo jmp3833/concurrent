@@ -14,12 +14,19 @@ class ScanActor extends UntypedActor {
     }
     //Perform a Scan operation on the given user or baggage
     if(msg instanceof ScanBagRequest) {
+      ScanBagRequest sb = (ScanBagRequest) msg;
+
+      System.out.println("Scanner is checking bag for passenger " 
+          + sb.b.getPassenger().name);
+
       secStationRef.tell(new BagScannedRequest(
               ((ScanBagRequest) msg).b, FailureChance.randomFailure())
       );
     }
 
     else if(msg instanceof ScanBodyRequest) {
+      System.out.println("Scanner is checking passenger " 
+          + ((ScanBodyRequest) msg).p.name);
       secStationRef.tell(new BodyScannedRequest(
               ((ScanBodyRequest) msg).p, FailureChance.randomFailure())
       );

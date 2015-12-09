@@ -30,14 +30,14 @@ class Main {
     general.start();
 
     for(int line = 0; line < NUM_LINES; line++) {
-      InitRequest jailRequest = new InitRequest(null, null, null, jail);
+      InitRequest jailRequest = new InitRequest(null, null, null, jail, NUM_LINES);
 
       //Setup security station and scanners per line
       ActorRef sec = Actors.actorOf(SecurityStationActor.class);
       sec.start();
       sec.tell(jailRequest);
 
-      InitRequest secRequest = new InitRequest(sec, null, null, jail);
+      InitRequest secRequest = new InitRequest(sec, null, null, jail, NUM_LINES);
 
       ActorRef bagScan = Actors.actorOf(ScanActor.class);
       bagScan.start();
@@ -50,7 +50,7 @@ class Main {
       ActorRef ln = Actors.actorOf(LineActor.class);
       ln.start();
 
-      ln.tell(new InitRequest(sec, bagScan, bodyScan, jail));
+      ln.tell(new InitRequest(sec, bagScan, bodyScan, jail, NUM_LINES));
       lines.add(ln);
     }
     
