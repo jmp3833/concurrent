@@ -82,6 +82,7 @@ class SecurityStationActor extends UntypedActor {
             this.shutdownsReceived++;
             if(this.shutdownsReceived == 2) {
                 jailRef.tell(new ShutdownRequest());
+                jailRef.stop();
             }
         }
     }
