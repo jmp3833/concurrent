@@ -8,6 +8,8 @@ public class Passenger {
 
     public Passenger(String n, int numBags) {
         this.name = n;
+        this.numBags = numBags;
+
         this.bags = new ArrayList<Bag>();
         for(int i = 0; i < numBags; i++) {
             this.bags.add(new Bag(this));

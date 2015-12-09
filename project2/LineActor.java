@@ -27,15 +27,16 @@ class LineActor extends UntypedActor {
       
       //Send the baggage through 
       for(int i = 0; i < p.getNumBags(); i++) {
-        bagScanner.tell(p.getBagAtIndex(i));
+        bagScanner.tell(new ScanBagRequest(p.getBagAtIndex(i)));
       }
 
       //Send the passenger through
-      bodyScanner.tell(p);
+      bodyScanner.tell(new ScanBodyRequest(p));
     }
 
     if(msg instanceof InitRequest) {
       //Setup ref to all relevant actors on the chain    
+      System.out.println("Setting up a line for the day!");
       InitRequest ilr = (InitRequest) msg;
       this.secStation = ilr.secStation; 
       this.bagScanner = ilr.bagScanner; 
