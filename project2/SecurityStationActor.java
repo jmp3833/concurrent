@@ -67,6 +67,7 @@ class SecurityStationActor extends UntypedActor {
                     if(b.getScanCompleted() && !b.getScanPassed()) {
                         //A bag failed a check
                         jailRef.tell(new AddPrisonerRequest(p));
+                        waiting.remove(p);
                         break;
                     }
                     if(b.getScanCompleted() && b.getScanPassed()) {
@@ -76,8 +77,7 @@ class SecurityStationActor extends UntypedActor {
                 if(passed == p.getNumBags()) {
                     //Passenger passed all checks
                     System.out.println("Passenger " + p.name + " finishes passing through security");
-                } else {
-                    waiting.add(p);
+                    waiting.remove(p);
                 }
             }
         }
