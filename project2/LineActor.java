@@ -7,9 +7,6 @@ class LineActor extends UntypedActor {
   //Queue of passengers waiting to enter a line at the TSA
   Queue<Passenger> passengers = new PriorityQueue<Passenger>();
 
-  //Queue of baggage waiting to enter a line at the TSA
-  Queue<Bag> baggage = new PriorityQueue<Bag>();
-
   ActorRef secStation;
   ActorRef bagScanner;
   ActorRef bodyScanner;
@@ -25,6 +22,16 @@ class LineActor extends UntypedActor {
 
     if(msg instanceof AddToLineRequest) {
       //Pass baggage and passengers to appropriate scanners
+      AddToLineRequest atl = (AddToLineRequest) msg; 
+      Passenger p = atl.getPassenger(); 
+      
+      //Send the baggage through 
+      for(int i = 0; i < p.getNumBags(); i++) {
+        bagScanner.tell(p.getBagAtIndex(i));
+      }
+
+      //Send the passenger through
+      bodyScanner.tell(p);
     }
 
     if(msg instanceof InitRequest) {
