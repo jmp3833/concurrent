@@ -18,8 +18,9 @@ public class JailActor extends UntypedActor {
         if(msg instanceof AddPrisonerRequest) {
             // if they are already in the jail, don't send them again
             Passenger passenger = ((AddPrisonerRequest) msg).p;
-            if (detainees.indexOf(passenger) == -1){
+            if (!detainees.contains(passenger)){
                 detainees.add(passenger);
+                System.out.println("Passenger " + passenger.name + " is being detained");
             }
         }
 
