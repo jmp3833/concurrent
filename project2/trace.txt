@@ -1,0 +1,101 @@
+A run with 5 passengers and 2 lines. 
+Passengers can have anywhere between 1 and 5 lines
+
+---------------------------------------------
+
+All actors are sent an initalization message at the beginning of the main driver
+
+Initalize with 5 and 2 lines.
+Initalize the jail from main
+Initalize the security station from main
+Initalize bag scanner from main
+Jail is initalized... 
+Initalize body scanner from main
+Initalize line from main
+Initalize the jail from main
+Initalize the security station from main
+Setting up a line for the day!
+Initalize bag scanner from main
+Initalize body scanner from main
+Initalize line from main
+Setting up a line for the day!
+
+----------------------------------------------
+
+All passengers pass through the document check in the order they arrive. 
+
+General got his lines!
+Passenger Passenger 0 headed to the document check with 3 bags!
+Passenger Passenger 1 headed to the document check with 5 bags!
+Passenger Passenger 2 headed to the document check with 3 bags!
+Passenger Passenger 3 headed to the document check with 1 bags!
+Passenger Passenger 4 headed to the document check with 1 bags!
+
+------------------------------------------------
+
+In this case, every passenger got through document check. Happy day!
+Subsequent runs may fail passengers at document check 20% of the time. 
+
+Adding passenger Passenger 0 to line with it's baggage
+Scanner is checking bag for passenger Passenger 0
+Adding passenger Passenger 1 to line with it's baggage
+Scanner is checking passenger Passenger 0
+Adding passenger Passenger 2 to line with it's baggage
+Scanner is checking passenger Passenger 1
+Adding passenger Passenger 3 to line with it's baggage
+Scanner is checking bag for passenger Passenger 0
+Adding passenger Passenger 4 to line with it's baggage
+
+--------------------------------------------------
+
+All passengers who have made it through document check head into the scanner
+one scan per bag and one scan per passenger. Passengers can have 1 to 5 bags
+
+Scanner is checking bag for passenger Passenger 0
+Scanner is checking passenger Passenger 2
+Sending passenger Passenger 0 from sec station to jail
+Scanner is checking passenger Passenger 3
+Scanner is checking bag for passenger Passenger 1
+Scanner is checking passenger Passenger 4
+Scanner is checking bag for passenger Passenger 1
+Passenger Passenger 0 is being detained
+Scanner is checking bag for passenger Passenger 1
+Scanner is checking bag for passenger Passenger 1
+Scanner is checking bag for passenger Passenger 1
+Sending passenger Passenger 4 from sec station to jail
+Scanner is checking bag for passenger Passenger 2
+Passenger Passenger 1 finishes passing through security
+Scanner is checking bag for passenger Passenger 2
+Passenger Passenger 4 is being detained
+Scanner is checking bag for passenger Passenger 2
+Scanner is checking bag for passenger Passenger 3
+Passenger Passenger 2 is being detained
+Passenger Passenger 3 finishes passing through security
+Scanner is checking bag for passenger Passenger 4
+
+-----------------------------------------------------
+
+Shutdown process passing from main to each actor in 
+sequence. Once the jail gets the final shutdown message (indicating
+that all other actors have recieved their shutdown messages)
+Then the stopall message is sent to every actor
+
+System is initiating the shutdown process...
+TSA General actor is initiating a shutdown
+TSA General instructing a line to shut down
+TSA General instructing a line to shut down
+A line has been notified to shut down
+A line has been notified to shut down
+A scanner has recieved a message to shut down
+A scanner has recieved a message to shut down
+A scanner has recieved a message to shut down
+A scanner has recieved a message to shut down
+Jail has been notified to shut down 
+Stations shut down: 1
+Jail has been notified to shut down 
+Stations shut down: 2
+Moving prisoners to real jail:
+  Passenger 0
+  Passenger 4
+  Passenger 2
+Stopping the system
